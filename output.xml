@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.3 on linux)" generated="2026-04-08T21:07:53.282887" rpa="false" schemaversion="5">
+<suite id="s1" name="firstTestSuite" source="/home/mike/Desktop/Studia/Nokia/SimpleEPCSimulator/firstTestSuite.robot">
+<test id="s1-t1" name="Quick And Simpe Get Request Test" line="12">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-08T21:07:53.439056" level="INFO">Creating Session using : alias=mysession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>mysession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-08T21:07:53.438711" elapsed="0.000642"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-08T21:07:53.445434" level="INFO">GET Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-08T21:07:53.445606" level="INFO">GET Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 08 Apr 2026 19:07:53 GMT', 'server': 'uvicorn', 'content-length': '10', 'content-type': 'application/json'} 
+ body={"ues":[]} 
+ </msg>
+<msg time="2026-04-08T21:07:53.445757" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>mysession</arg>
+<arg>/ues</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-08T21:07:53.439555" elapsed="0.006232"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-04-08T21:07:53.446696" level="INFO">200</msg>
+<arg>${RESPONSE.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-04-08T21:07:53.446006" elapsed="0.000737"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${RESPONSE.text}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-08T21:07:53.446953" elapsed="0.000863"/>
+</kw>
+<doc>This is a simple get request</doc>
+<status status="PASS" start="2026-04-08T21:07:53.437774" elapsed="0.010178"/>
+</test>
+<doc>This is a simple file where we try to understand robot.</doc>
+<status status="PASS" start="2026-04-08T21:07:53.283696" elapsed="0.164640"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="firstTestSuite" id="s1" pass="1" fail="0" skip="0">firstTestSuite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
