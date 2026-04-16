@@ -9,8 +9,9 @@ Library         RequestsLibrary
 ${BASE_URL}     http://localhost:8000
 ${UE_ID}        7
 ${BEARER_ID}    1
-${SPEED}        NONE
-${UNITS}        NONE
+${SPEED}        NONE        # 1 / 50 / 99 / 100 / 101
+${UNITS}        NONE        # bps / Kbps / Mbps
+${PROTOCOL}     NONE        # TCP / UDP
 
 
 *** Test Cases ***
@@ -18,10 +19,8 @@ TC 1
     [Documentation]     Test One!
     Prepare Test Environment
     Set Transter Speed To 1 bps
-
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
+    Set TCP Protocol
+    Verify Transfer
     Clean Test Environment
 
 TC 2
@@ -114,6 +113,36 @@ TC 10
     # Use a invalid Bearer ID.
     Clean Test Environment Without Bearer  # This can be a custom tear down.
 
+TC 11
+    [Documentation]     Prepare the environment normally, but use an invalid Bearer ID.
+    Prepare Test Environment
+    Set Transter Speed To 50 Kbps
+
+    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
+    # Use a invalid UE ID.
+    # Use a invalid Bearer ID.
+    Clean Test Environment  # This can be a custom tear down.
+
+TC 12
+    [Documentation]     Prepare the environment normally, but use an invalid Bearer ID.
+    Prepare Test Environment   # This can be a custom set up.
+    Set Transter Speed To 50 Mbps
+
+    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
+    # Use a invalid UE ID.
+    # Use a invalid Bearer ID.
+    Clean Test Environment   # This can be a custom tear down.
+
+TC 13
+    [Documentation]     Prepare the environment normally, but use an invalid Bearer ID.
+    Prepare Test Environment  # This can be a custom set up.
+    Set Transter Speed To 100 Mbps
+
+    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
+    # Use a invalid UE ID.
+    # Use a invalid Bearer ID.
+    Clean Test Environment   # This can be a custom tear down.
+
 
 *** Keywords ***
 # Here we have out set ups and tear downs.
@@ -175,9 +204,21 @@ Detach Bearer${BearerId} From UE${UeId}
     RETURN              ${RESPONSE}
 
 Set Transter Speed To ${Speed} ${Units}
-    [Documentation]     Here we will set the transfer speed for the connection.
-    Log To Console      ${Speed}
-    Log To Console      ${Units}
+    [Documentation]     Here we set the transfer speed for the connection.
+    Set Test Variable   ${SPEED}     ${Speed}
+    Set Test Variable   ${UNITS}     ${Units}
 
-    Set Test Variable   ${SPEED}    ${Speed}
-    Set Test Variable   ${UNITS}    ${Units}
+Set ${Protocol} Protocol
+    [Documentation]     Here we set the protocol on the connection.
+    Set Test Variable   ${PROTOCOL}  ${Protocol}
+
+Verify Transfer  # HERE WE HAVE TO TEST THE PROTOCOL it could be TCP or UDP
+    [Documentation]     Here we will execute the transfer speed test.
+    Create Session      connectSession      ${BASE_URL}
+
+    ${BODY}=            Create Dictionary   "protocol"="tcp",${UNITS}=${SPEED}
+    Log To Console      ${BODY}
+    ${RESPONSE}=        POST On Session     connectSession  /ues/${UE_ID}/bearers/${BEARER_ID}/traffic
+
+    Sleep               1                   Testing the connection for a duration of time.
+
