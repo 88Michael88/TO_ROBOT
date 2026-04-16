@@ -87,7 +87,7 @@ TC 7
 TC 8
     [Documentation]     Prepare the environment with an invalid Bearer ID.
     Prepare Test Environment Without Bearer  # This can be a custom set up.
-    Set Transter Speed To 50 Mbps
+    Set Transter Speed To 50 Kbps
 
     # Use different speeds. One larger, equal to, one smaller than the max Mbps.
     # Use a invalid UE ID.
@@ -95,17 +95,28 @@ TC 8
     Clean Test Environment Without Bearer  # This can be a custom tear down.
 
 TC 9
-    [Documentation]     Prepare the environment with an invalid UE ID.
-    Prepare Test Environment Without UE  # This can be a custom set up.
+    [Documentation]     Prepare the environment with an invalid Bearer ID.
+    Prepare Test Environment Without Bearer  # This can be a custom set up.
     Set Transter Speed To 50 Mbps
 
     # Use different speeds. One larger, equal to, one smaller than the max Mbps.
     # Use a invalid UE ID.
     # Use a invalid Bearer ID.
-    Clean Test Environment Without UE  # This can be a custom tear down.
+    Clean Test Environment Without Bearer  # This can be a custom tear down.
+
+TC 10
+    [Documentation]     Prepare the environment with an invalid Bearer ID.
+    Prepare Test Environment Without Bearer  # This can be a custom set up.
+    Set Transter Speed To 100 Mbps
+
+    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
+    # Use a invalid UE ID.
+    # Use a invalid Bearer ID.
+    Clean Test Environment Without Bearer  # This can be a custom tear down.
 
 
 *** Keywords ***
+# Here we have out set ups and tear downs.
 Prepare Test Environment
     [Documentation]     Here we will Attach the UE and Attach the Bearer.
     Attach UE7 To Network
@@ -116,6 +127,15 @@ Clean Test Environment
     Detach Bearer1 From UE7
     Detach UE7 From Network
 
+Prepare Test Environment Without Bearer
+    [Documentation]     Here we will Attach the UE without Attaching the Bearer.
+    Attach UE7 To Network
+
+Clean Test Environment Without Bearer
+    [Documentation]     Here we will Attach the UE without Detaching the Bearer.
+    Detach UE7 From Network
+
+# Here we have the Key Words that will be treated as functions.
 Attach UE${UeId} To Network
     [Documentation]     Attach UE with id UeId to the network.
     Create Session      connectSession      ${BASE_URL}
@@ -156,6 +176,8 @@ Detach Bearer${BearerId} From UE${UeId}
 
 Set Transter Speed To ${Speed} ${Units}
     [Documentation]     Here we will set the transfer speed for the connection.
+    Log To Console      ${Speed}
+    Log To Console      ${Units}
 
     Set Test Variable   ${SPEED}    ${Speed}
     Set Test Variable   ${UNITS}    ${Units}
