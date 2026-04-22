@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Weryfikacja punktu 5: Precyzyjne i całkowite zakończenie transferu.
+Documentation    Weryfikacja punktu 5: Precyzyjne i całkowite zakończenie transferu
 Library          RequestsLibrary
 Library          Collections
 Suite Setup      Setup UE With Multiple Bearers
@@ -10,7 +10,7 @@ ${UE_ID}         ${10}
 
 *** Test Cases ***
 Verify Specific Bearer Removal
-    [Documentation]    Test sprawdza, czy po usunięciu jednego bearera, pozostałe 2 wciąż istnieją.
+    [Documentation]    Test sprawdza, czy po usunięciu jednego bearera, pozostałe 2 wciąż istnieją
     DELETE On Session    my_session    /ues/${UE_ID}/bearers/2
     
     ${resp}=    GET On Session    my_session    /ues/${UE_ID}
@@ -20,7 +20,7 @@ Verify Specific Bearer Removal
     Log To Console    \nPozostałe bearery po usunięciu jednego: ${count}
 
 Verify Total Detach Removes Everything
-    [Documentation]    Test sprawdza, czy usunięcie całego UE czyści wszystko (lista UE pusta).
+    [Documentation]    Test sprawdza, czy usunięcie całego UE czyści wszystko (lista UE pusta)
     DELETE On Session    my_session    /ues/${UE_ID}
     
     ${resp}=    GET On Session    my_session    /ues
@@ -31,7 +31,7 @@ Verify Total Detach Removes Everything
 
 *** Keywords ***
 Setup UE With Multiple Bearers
-    [Documentation]    Przygotowuje środowisko: resetuje symulator i dodaje UE z 3 bearerami.
+    [Documentation]    Przygotowuje środowisko: resetuje symulator i dodaje UE z 3 bearerami
     Create Session    my_session    ${BASE_URL}
     POST On Session    my_session    /reset
 
