@@ -18,22 +18,22 @@ Verify Simulator Reset And Inspect Content
     #ignore error if ID is already taken because assumption is completed anyway
     Run Keyword And Ignore Error    POST On Session    my_session    /ues    json=${payload}
 
-    
+
     # Check and log number of Attached UE's BEFORE reset
     ${count_ue}=  Check number of Attached UE's
     Log To Console    \nLiczba urządzeń w ues przed resetem: ${count_ue}
 
     # reset
     POST On Session    my_session    /reset
-    
+
     # Check and log number of Attached UE's after reset
-     ${count_ue}=  Check number of Attached UE's
-     Log To Console    \nLiczba urządzeń w ues po resecie: ${count_ue}
-     Verify List Is Empty  ${count_ue}
-    
+    ${count_ue}=  Check number of Attached UE's
+    Log To Console    \nLiczba urządzeń w ues po resecie: ${count_ue}
+    Verify List Is Empty  ${count_ue}
+
 
 *** Keywords ***
- Check number of Attached UE's
+Check number of Attached UE's
     [Documentation]  Check and log number of Attached UE's to show number of UE's attached before and after   
     ${RESPONSE}=    GET On Session    my_session    /ues
     ${ues_list}=    Set Variable    ${RESPONSE.json()}[ues]
