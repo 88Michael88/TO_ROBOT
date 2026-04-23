@@ -13,7 +13,7 @@ ${SPEED}        NONE        # 1 / 50 / 99 / 100 / 101
 ${SPEED_bps}    NONE        # The speed in bps
 ${UNITS}        NONE        # bps / kbps / Mbps
 ${PROTOCOL}     NONE        # TCP / UDP
-${DURATION}     10
+${DURATION}     1
 
 
 *** Keywords ***
@@ -24,13 +24,20 @@ Verify Transfer
     Get Transfer
     End Transfer
 
+Verify Transfer Expected ${ErrorCode} Error
+    [Documentation]     Here we will execute the transfer speed test.
+    ${StatusCode}=      Start Transfer
+    Should Be Equal As Integers     ${StatusCode}   ${ErrorCode}
+
 Start Transfer
     [Documentation]     Start the transfer of data
     Create Session      connectSession      ${BASE_URL}
 
     ${BODY}=            Create Dictionary   protocol=${PROTOCOL}    ${UNITS}=${SPEED}
     Log To Console      \n${BODY}
-    ${RESPONSE}=        POST On Session     connectSession  /ues/${UE_ID}/bearers/${BEARER_ID}/traffic  json=${BODY}
+    ${RESPONSE}=        POST On Session     connectSession  /ues/${UE_ID}/bearers/${BEARER_ID}/traffic  json=${BODY}  expected_status=any
+
+    RETURN              ${RESPONSE.status_code}
 
 Get Transfer
     [Documentation]     Check if the transfer is valid
@@ -42,7 +49,6 @@ Get Transfer
 
 Validate Transfer ${Response} Received
     [Documentation]     Validating if the transfer matches assumptions
-    Log To Console      ${Response.status_code}
     Log To Console      ${Response.json()}
     Parse And Validate ${Response.json()} Dictionary
 
