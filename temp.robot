@@ -10,87 +10,17 @@ ${BASE_URL}     http://localhost:8000
 ${UE_ID}        7
 ${BEARER_ID}    1
 ${SPEED}        NONE        # 1 / 50 / 99 / 100 / 101
+${SPEED_bps}    NONE        # The speed in bps
 ${UNITS}        NONE        # bps / Kbps / Mbps
 ${PROTOCOL}     NONE        # TCP / UDP
 
 
 *** Test Cases ***
-TC 1
-    [Documentation]     Test One!
-    Prepare Test Environment
-    Set Transter Speed To 1 bps
-    Set TCP Protocol
-    Verify Transfer
-    Clean Test Environment
-
-TC 2
-    [Documentation]     Test Two!
-    Prepare Test Environment
-    Set Transter Speed To 1 Kbps
-
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
-    Clean Test Environment
-
-TC 3
-    [Documentation]     Test Two!
-    Prepare Test Environment
-    Set Transter Speed To 1 Mbps
-
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
-    Clean Test Environment
-
-TC 4
-    [Documentation]     Test Two!
-    Prepare Test Environment
-    Set Transter Speed To 50 Mbps
-
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
-    Clean Test Environment
-
-TC 5
-    [Documentation]     Test Two!
-    Prepare Test Environment
-    Set Transter Speed To 99 Mbps
-
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
-    Clean Test Environment
-
-TC 6
-    [Documentation]     Test Two!
-    Prepare Test Environment
-    Set Transter Speed To 100 Mbps
-
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
-    Clean Test Environment
-
-TC 7
-    [Documentation]     Test Two!
-    Prepare Test Environment
-    Set Transter Speed To 101 Mbps
-
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
-    Clean Test Environment
-
 TC 8
     [Documentation]     Prepare the environment with an invalid Bearer ID.
     Prepare Test Environment Without Bearer  # This can be a custom set up.
     Set Transter Speed To 50 Kbps
 
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
     Clean Test Environment Without Bearer  # This can be a custom tear down.
 
 TC 9
@@ -98,9 +28,6 @@ TC 9
     Prepare Test Environment Without Bearer  # This can be a custom set up.
     Set Transter Speed To 50 Mbps
 
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
     Clean Test Environment Without Bearer  # This can be a custom tear down.
 
 TC 10
@@ -108,9 +35,6 @@ TC 10
     Prepare Test Environment Without Bearer  # This can be a custom set up.
     Set Transter Speed To 100 Mbps
 
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
     Clean Test Environment Without Bearer  # This can be a custom tear down.
 
 TC 11
@@ -118,9 +42,6 @@ TC 11
     Prepare Test Environment
     Set Transter Speed To 50 Kbps
 
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
     Clean Test Environment  # This can be a custom tear down.
 
 TC 12
@@ -128,9 +49,6 @@ TC 12
     Prepare Test Environment   # This can be a custom set up.
     Set Transter Speed To 50 Mbps
 
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
     Clean Test Environment   # This can be a custom tear down.
 
 TC 13
@@ -138,9 +56,6 @@ TC 13
     Prepare Test Environment  # This can be a custom set up.
     Set Transter Speed To 100 Mbps
 
-    # Use different speeds. One larger, equal to, one smaller than the max Mbps.
-    # Use a invalid UE ID.
-    # Use a invalid Bearer ID.
     Clean Test Environment   # This can be a custom tear down.
 
 
@@ -220,5 +135,5 @@ Verify Transfer  # HERE WE HAVE TO TEST THE PROTOCOL it could be TCP or UDP
     Log To Console      ${BODY}
     ${RESPONSE}=        POST On Session     connectSession  /ues/${UE_ID}/bearers/${BEARER_ID}/traffic
 
-    Sleep               1                   Testing the connection for a duration of time.
+    Sleep               ${DURATION}         Testing the connection for a duration of time.
 
