@@ -11,7 +11,7 @@ ${PROTOCOL}     NONE        # tcp / udp
 
 
 *** Keywords ***
-Set Transter Speed To ${Speed} ${Units}
+Set Transfer Speed To ${Speed} ${Units}
     [Documentation]     Here we set the transfer speed for the connection.
     ${SPEED}            Convert To Integer  ${Speed}
     Parse ${Units} And ${SPEED}
