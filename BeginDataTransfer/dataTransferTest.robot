@@ -152,13 +152,13 @@ TC 22 - Transfer below Minimum Speed
     Verify Transfer Expected 400 Error
 
 TC 23 - Transfer below Minimum Speed
-    [Documentation]     Verify that data transfer fails when connection speed is below the minimum allowed value (0 bps). Expect HTTP 400 error.
+    [Documentation]     Verify that data transfer fails when connection speed is below the minimum allowed value (0 kbps). Expect HTTP 400 error.
     Set Transfer Speed To 0 kbps
     Set TCP Protocol
     Verify Transfer Expected 400 Error
 
 TC 24 - Transfer below Minimum Speed 
-    [Documentation]     Verify that data transfer fails when connection speed is below the minimum allowed value (0 bps). Expect HTTP 400 error.
+    [Documentation]     Verify that data transfer fails when connection speed is below the minimum allowed value (0 Mbps). Expect HTTP 400 error.
     Set Transfer Speed To 0 Mbps
     Set TCP Protocol
     Verify Transfer Expected 400 Error
