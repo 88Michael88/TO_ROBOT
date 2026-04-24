@@ -31,5 +31,8 @@ Possible Tests Cases:
 | 4.        | 19.      | FAIL   | 1 kbps           | 7     | 4         | xxx      | Unregistered Bearer ID   |
 | 4.        | 20.      | FAIL   | 1 Mbps           | 7     | 4         | xxx      | Unregistered Bearer ID   |
 | 5.        | 21.      | FAIL   | x                | 6     | x         | xxx      | Unregistered UE ID       |
+| 6.        | 22.      | FAIL   | 0 bps            | 7     | 3         | xxx      |                          |
+| 6.        | 23.      | FAIL   | 0 kbps           | 7     | 3         | xxx      |                          |
+| 6.        | 24.      | FAIL   | 0 Mbps           | 7     | 3         | xxx      |                          |
 
 x - This value is not important.

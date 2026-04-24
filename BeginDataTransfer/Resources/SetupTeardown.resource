@@ -12,22 +12,31 @@ ${BEARER_ID}    3
 *** Keywords ***
 # Here we have out set ups and tear downs.
 Prepare Test Environment
-    [Documentation]     Here we will Attach the UE and Attach the Bearer.
+    [Documentation]     Here we will Attach the UE and Add the Bearer.
     Attach UE7 To Network
     Attach Bearer3 To UE7
 
 Clean Test Environment
-    [Documentation]     Here we will Detach the UE and Detach the Bearer.
+    [Documentation]     Here we will Detach the UE and Delete the Bearer.
     Detach Bearer3 From UE7
     Detach UE7 From Network
 
 Prepare Test Environment Without Bearer
-    [Documentation]     Here we will Attach the UE without Attaching the Bearer.
+    [Documentation]     Here we will Attach the UE without Adding the Bearer.
     Attach UE7 To Network
 
 Clean Test Environment Without Bearer
-    [Documentation]     Here we will Attach the UE without Detaching the Bearer.
+    [Documentation]     Here we will Detach the UE without Deleting the Bearer.
     Detach UE7 From Network
+
+Prepare Test Environment Without UE
+    [Documentation]     Here we will not nothing. This is added for TC readability.
+    No Operation
+
+Clean Test Environment Without UE
+    [Documentation]     Here we will not nothing. This is added for TC readability.
+    No Operation
+
 
 # Here we have the Key Words that will be treated as functions.
 Attach UE${UeId} To Network
