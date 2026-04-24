@@ -21,26 +21,26 @@ TC 2 Add Bearer Outside Valid Range
     # test high
     Attach Bearer10 To UE3
     Verify If Response Is Validation Error
-    Verify If Response Message Is Input should be less than or equal to 9
+    Verify If Response Message Is "Input should be less than or equal to 9"
 
     # test low
     Attach Bearer0 To UE3
     Verify If Response Is Validation Error
-    Verify If Response Message Is Input should be greater than or equal to 1
+    Verify If Response Message Is "Input should be greater than or equal to 1"
 
 TC 3 Add Already Attached Bearer
     [Documentation]    Attempts to attach same bearer twice
     Attach Bearer1 To UE3
     Attach Bearer1 To UE3
     Verify If Response Is Bad Request
-    Verify If Response Details Is Bearer already exists
+    Verify If Response Details Is "Bearer already exists"
     Detach Bearer1 From UE3
 
 TC 4 Add Default Bearer
     [Documentation]   Attempts to add default bearer (ID = 9) which always exists
     Attach Bearer9 To UE3
     Verify If Response Is Bad Request
-    Verify If Response Details Is Bearer already exists
+    Verify If Response Details Is "Bearer already exists"
 
 
 

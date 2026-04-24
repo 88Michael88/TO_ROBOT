@@ -2,7 +2,7 @@
 *** Variables ***
 ${BASE_URL}      http://localhost:8000
 &{STATUS_NAMES}  OK=200     Bad Request=400     Validation Error=422
-&{RESPONSE_NAMES_MAP}  Details=detail  Message=msg
+&{RESPONSE_NAMES_MAP}  Details=detail  Message=msg  Status=status
 
 *** Keywords ***
 Attach UE${UeId} To Network
@@ -41,24 +41,35 @@ Detach Bearer${BearerId} From UE${UeId}
     [Documentation]     Detach Bearer with BearerId from UE with UeId
     Create Session      connectSession      ${BASE_URL}
 
-    ${Response}=        DELETE On Session   connectSession   /ues/${UeId}/bearers/${BearerId}
+    ${Response}=        DELETE On Session   connectSession   /ues/${UeId}/bearers/${BearerId}  expected_status=Anything
 
     Set Test Variable   ${RESPONSE}         ${Response}
 
     RETURN              ${Response}
 
+# Start ${Protocol} Traffic For UE${UeId} On Bearer${BearerId}
+#     Create Session      connectSession      ${BASE_URL}
+#
+#     ${BODY}=            Create Dictionary   protocol=${Protocol}
+#     ${Response}=        POST On Session     connectSession   /ues/${UeId}/bearers  json=${BODY}     expected_status=Anything
+#
+#     Set Test Variable   ${BEARER_ID}        ${BearerId}
+#     Set Test Variable   ${RESPONSE}         ${Response}
+#
+#     RETURN              ${Response}
+
 Verify If Response Is ${StatusName}
     Status Should Be    ${STATUS_NAMES}[${StatusName}]
 
-Verify If Response ${ArgName} Is ${ArgValue}
+Verify If Response ${ArgName} Is "${ArgValue}"
     VAR  ${ArgName}  ${RESPONSE_NAMES_MAP}[${ArgName}]
-    VAR  ${Response}  ${RESPONSE.json()}[detail]
-    IF  "${ArgName}" == "detail"
-        Log To Console      ${Response}
-        Should Be Equal     ${Response}  ${ArgValue}    ignore_case=True
+    VAR  ${Response}  ${RESPONSE.json()}
+    IF  "${ArgName}" == "msg"
+        Log To Console      ${Response}[detail][0][${ArgName}]
+        Should Be Equal     ${Response}[detail][0][${ArgName}]   ${ArgValue}    ignore_case=True
     ELSE
-        Log To Console      ${Response}[0][${ArgName}]
-        Should Be Equal     ${Response}[0][${ArgName}]   ${ArgValue}    ignore_case=True
+        Log To Console      ${Response}
+        Should Be Equal     ${Response}[${ArgName}]  ${ArgValue}    ignore_case=True
     END
 
 
