@@ -1,46 +1,197 @@
 *** Settings ***
-Documentation    Weryfikacja punktu 5: Precyzyjne i całkowite zakończenie transferu
-Library          RequestsLibrary
+Documentation    
+Resource         SetupTeardownWithArguments.resource
 Library          Collections
-Suite Setup      Setup UE With Multiple Bearers
+Library          RequestsLibrary
+
+Suite Setup      Prepare Environment
 
 *** Variables ***
 ${BASE_URL}      http://localhost:8000
-${UE_ID}         ${10}
+${UE_ID}         10
+${UE_ID2}        11
+${BEARER_ID}     1
+${BEARER_ID2}    2
+${BEARER_ID3}    3
 
 *** Test Cases ***
-Verify Specific Bearer Removal
-    [Documentation]    Test sprawdza, czy po usunięciu jednego bearera, pozostałe 2 wciąż istnieją
-    DELETE On Session    my_session    /ues/${UE_ID}/bearers/2
+TC_5 01_Stop Transfer On Active Bearer
+    [Documentation]    Test if possible to stop active berer
+    [Tags]             Positive_Test    Stop_Transfer
     
-    ${resp}=    GET On Session    my_session    /ues/${UE_ID}
-    ${bearers}=    Set Variable    ${resp.json()}[bearers]
-    ${count}=      Get Length    ${bearers}
-    Should Be Equal As Integers    ${count}    2
-    Log To Console    \nPozostałe bearery po usunięciu jednego: ${count}
+    Reset Simulator
+    
+    # Arrange
+    
+    Attach UE To Network  ${UE_ID}
+    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID}
+    Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID}  50
+    
+    ${tx_before}=    Get Traffic Stats   ${UE_ID}    ${BEARER_ID}
+    Log To Console    \nTx bps przed stopem: ${tx_before}
+    Should Not Be Equal As Integers    ${tx_before}    0    msg=Przed stopem powinno być > 0
+    
+    # Act
+    Stop Traffic On Bearer   ${UE_ID}  ${BEARER_ID}
+    
+    # Assert
+    check if transfer is stopped    ${UE_ID}  ${BEARER_ID}
 
-Verify Total Detach Removes Everything
-    [Documentation]    Test sprawdza, czy usunięcie całego UE czyści wszystko (lista UE pusta)
-    DELETE On Session    my_session    /ues/${UE_ID}
+TC_5 02_Stop Transfer On Inactive Bearer
+    [Documentation]    Test if possible to stop innactive berer
+    [Tags]             Negative_Test    Stop_Transfer
     
-    ${resp}=    GET On Session    my_session    /ues
-    ${ues_list}=    Set Variable    ${resp.json()}[ues]
-    ${count}=       Get Length      ${ues_list}
-    Should Be Equal As Integers    ${count}    0
-    Log To Console    \nLiczba UE w systemie po Detach: ${count}
+    Reset Simulator
+    
+    # Arrange - bearer bez traffica
+    Attach UE To Network  ${UE_ID}
+    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID}
+    
+    # Act & Assert - próba stopu na bearerem bez traffica
+    Run Keyword And Expect Error  *  Stop Traffic On Bearer   ${UE_ID}  ${BEARER_ID}
+      
+TC_5 03_Stop Transfer On Non Existent Bearer
+    [Documentation]    Test if possible to stop transfer on non existing bearer
+    [Tags]             Negative_Test    Stop_Transfer
+    
+    Reset Simulator
+    
+    # Arrange 
+    Attach UE To Network  ${UE_ID}
+    
+    # Act & Assert - próba stopu na bearerem który nie istnieje
+    Run Keyword And Expect Error  *  Stop Traffic On Bearer   ${UE_ID}  ${BEARER_ID}
+
+TC_5 04_Stop Transfer On Non Existent UE
+    [Documentation]    Test if possible to stop berer on non existing ue
+    [Tags]             Negative_Test    Stop_Transfer
+    
+    Create Session    my_session    ${BASE_URL}
+    POST On Session    my_session    /reset
+    
+    # Act & Assert - próba stopu dla nieistniejącego UE
+    ${response}=    DELETE On Session    my_session    /ues/999/bearers/${BEARER_ID}/traffic    expected_status=any
+    Log To Console    \nStatus po stopu na nieistniejącym UE: ${response.status_code}
+    Should Not Be Equal As Integers    ${response.status_code}    200    msg=Powinien zwrócić błąd dla nieistniejącego UE
+
+TC_5 05_Stop Transfer Twice
+    [Documentation]    Test if possible to stop berer that has been stopped before
+    [Tags]             Negative_Test    Stop_Transfer
+    
+    Reset Simulator
+
+    # Arrange - przygotowanie transferu
+    Attach UE To Network  ${UE_ID}
+    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID}
+    Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID}  50
+    
+    # Act - stop pierwszy raz
+    ${response1}=    Stop Traffic On Bearer   ${UE_ID}  ${BEARER_ID}
+    Log To Console    \nStatus pierwszego stopu: ${response1.status_code}
+    
+    Run Keyword And Expect Error  *  Stop Traffic On Bearer   ${UE_ID}  ${BEARER_ID}
+
+TC_5 06_Stop One Bearer Keep Other Active
+    [Documentation]    checking if stoping one transfer does not stop others on the same berer
+    [Tags]             Positive_Test    Stop_Transfer
+    
+    Reset Simulator
+
+    # Arrange - przygotowanie transferu
+    Attach UE To Network  ${UE_ID}
+    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID}
+    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID2}
+    
+    Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID}  50
+    Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID2}  50
+    
+    # Act - stop na na pierwszym bearerem
+    Stop Traffic On Bearer   ${UE_ID}  ${BEARER_ID}
+    
+    # Assert
+    Check if transfer is stopped    ${UE_ID}  ${BEARER_ID}
+    Run Keyword And Expect Error  *  Check if transfer is stopped    ${UE_ID}  ${BEARER_ID2} 
+    Reset Simulator
+
+TC_5 07_Stop All Traffic For UE Optional Bearer ID
+    [Documentation]    test if berer id is optional and allows to stop multiple bereres at once with the same ue_id
+    [Tags]             Positive_Test    Stop_Transfer
+    
+    Reset Simulator
+
+    # Arrange - przygotowanie transferu
+    Attach UE To Network  ${UE_ID}
+    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID}
+    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID2}
+    
+    Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID}  50
+    Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID2}  50
+
+    ${response}=    DELETE On Session    my_session    /ues/${UE_ID}/traffic    
+    
+
+TC_5 08_Stop Transfer With Invalid Bearer ID Out Of Range
+    [Documentation]    Test to check if berer out of range [1-9] will rerturn error
+    [Tags]             Negative_Test    Stop_Transfer
+    
+    Reset Simulator
+
+    # Arrange - przygotowanie transferu
+    Attach UE To Network  ${UE_ID}
+    
+    # Act & Assert - bearer 10 jest poza zakresem [1-9]
+    Run Keyword And Expect Error  *    Stop Traffic On Bearer   ${UE_ID}  10
+
+TC_5 09_Stop Transfer With Negative Bearer ID
+    [Documentation]    Test to check if possible to stop transfer on negative Berer ID
+    [Tags]             Negative_Test    Stop_Transfer
+    
+   Reset Simulator
+
+    # Arrange - przygotowanie transferu
+    Attach UE To Network  ${UE_ID}
+    
+    # Act & Assert - bearer 10 jest poza zakresem [1-9]
+    Run Keyword And Expect Error  *    Stop Traffic On Bearer   ${UE_ID}  -1
+
+TC_5 10_Stop Transfer On Default Bearer 9
+    [Documentation]    Veryfing if possible to stop transfer on default berer
+    [Tags]             Positive_Test    Stop_Transfer
+    
+    Reset Simulator
+
+    # Arrange - przygotowanie transferu
+    Attach UE To Network  ${UE_ID}
+    
+    Start Traffic On Bearer  ${UE_ID}  ${9}  50
+    
+    # Act
+    Stop Traffic On Bearer   ${UE_ID}  ${9}
+    
+    # Assert
+    Check if transfer is stopped    ${UE_ID}  ${9}
+
+TC_5 11_Stop Transfer With Invalid UE ID Out Of Range
+    [Documentation]    Test to check if UE_ID out of range  [1-100] will return error
+    [Tags]             Negative_Test    Stop_Transfer
+    
+    Reset Simulator
+
+    Run Keyword And Expect Error  *    Stop Traffic On Bearer   ${101}  ${9}
 
 *** Keywords ***
-Setup UE With Multiple Bearers
-    [Documentation]    Przygotowuje środowisko: resetuje symulator i dodaje UE z 3 bearerami
+Prepare Environment
+    [Documentation]    Reset everything before suite
     Create Session    my_session    ${BASE_URL}
     POST On Session    my_session    /reset
 
-    ${ue_data}=    Create Dictionary    ue_id=${10}
-    POST On Session    my_session    /ues    json=${ue_data}
-   
-    ${b2}=    Create Dictionary    bearer_id=${2}
-    POST On Session    my_session    /ues/10/bearers    json=${b2}
-    ${b3}=    Create Dictionary    bearer_id=${3}
-    POST On Session    my_session    /ues/10/bearers    json=${b3}
-   
-    Log To Console    \nSetup zakończony: UE ${UE_ID} posiada 3 bearery.
+Check if transfer is stopped
+    [Documentation]    Keyword to check if transfer is stopped by verifying that tx_bps is not increasing after stop command
+    [Arguments]    ${ue_id}  ${bearer_id}
+    
+    ${tx_before}=    Get Traffic Stats   ${ue_id}    ${bearer_id}
+    Sleep  1s
+    ${tx_after}=    Get Traffic Stats   ${ue_id}    ${bearer_id}
+    Log To Console    \nTx bps: ${tx_after}
+
+    Should Be Equal As Integers    ${tx_after}    ${tx_before}   msg=Po stopie powinny być równe
