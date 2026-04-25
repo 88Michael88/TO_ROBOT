@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.13.12 on linux)" generated="2026-04-25T22:27:28.293608" rpa="false" schemaversion="5">
+<suite id="s1" name="checkActiveBearersTest" source="/home/domino/studia/testowanie/epc-simulator/TO_ROBOT/BearerListing/checkActiveBearersTest.robot">
+<test id="s1-t1" name="TC 1 Check bearers listing" line="11">
+<kw name="Attach UE3 To Network" owner="checkBearersTestsResources" type="SETUP" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:28.563724" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:27:28.519050" elapsed="0.045581"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-25T22:27:28.652552" level="INFO">${BODY} = {'ue_id': '3'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-25T22:27:28.608442" elapsed="0.044464"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:28.778328" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '14', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "3"}' 
+ </msg>
+<msg time="2026-04-25T22:27:28.779998" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:27:28 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:27:28.781006" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:27:28.696502" elapsed="0.084780"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:27:28.868666" level="INFO">${UE_ID} = 3</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:27:28.824685" elapsed="0.044436"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:27:28.912182" elapsed="0.043045"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-25T22:27:28.474679" elapsed="0.523748"/>
+</kw>
+<kw name="Attach Bearer4 To UE3" owner="checkBearersTestsResources" source_name="Attach Bearer${BearerId} To UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:29.129663" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:27:29.086223" elapsed="0.044186"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-25T22:27:29.218033" level="INFO">${BODY} = {'bearer_id': '4'}</msg>
+<var>${BODY}</var>
+<arg>bearer_id=${BearerId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-25T22:27:29.173480" elapsed="0.044872"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:29.344686" level="INFO">POST Request : url=http://localhost:8000/ues/3/bearers 
+ path_url=/ues/3/bearers 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '18', 'Content-Type': 'application/json'} 
+ body=b'{"bearer_id": "4"}' 
+ </msg>
+<msg time="2026-04-25T22:27:29.345376" level="INFO">POST Response : url=http://localhost:8000/ues/3/bearers 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:27:28 GMT', 'server': 'uvicorn', 'content-length': '49', 'content-type': 'application/json'} 
+ body={"status":"bearer_added","ue_id":3,"bearer_id":4} 
+ </msg>
+<msg time="2026-04-25T22:27:29.346238" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:27:29.262397" elapsed="0.084758"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:27:29.434390" level="INFO">${BEARER_ID} = 4</msg>
+<arg>${BEARER_ID}</arg>
+<arg>${BearerId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:27:29.390353" elapsed="0.044417"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:27:29.521247" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:27:29.477320" elapsed="0.044351"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:27:29.565221" elapsed="0.042882"/>
+</return>
+<doc>Attach Bearer with BearerId to UE with UeId.</doc>
+<status status="PASS" start="2026-04-25T22:27:29.042024" elapsed="0.608349"/>
+</kw>
+<kw name="Get Info For UE3" owner="checkBearersTestsResources" source_name="Get Info For UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:29.782634" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:27:29.738196" elapsed="0.045090"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:29.884245" level="INFO">GET Request : url=http://localhost:8000/ues/3 
+ path_url=/ues/3 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:27:29.884886" level="INFO">GET Response : url=http://localhost:8000/ues/3 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:27:29 GMT', 'server': 'uvicorn', 'content-length': '172', 'content-type': 'application/json'} 
+ body={"ue_id":3,"bearers":{"9":{"bearer_id":9,"protocol":null,"target_bps":null,"active":false},"4":{"bearer_id":4,"protocol":null,"target_bps":null,"active":false}},"stats":{}} 
+ </msg>
+<msg time="2026-04-25T22:27:29.885638" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:27:29.827335" elapsed="0.058651"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:27:29.973011" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:27:29.928698" elapsed="0.044744"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:27:30.017213" elapsed="0.043177"/>
+</return>
+<status status="PASS" start="2026-04-25T22:27:29.694746" elapsed="0.409062"/>
+</kw>
+<kw name="Verify If Response Is OK" owner="checkBearersTestsResources" source_name="Verify If Response Is ${StatusName}">
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${STATUS_NAMES}[${StatusName}]</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-04-25T22:27:30.191995" elapsed="0.042778"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:27:30.147420" elapsed="0.130684"/>
+</kw>
+<kw name="Verify If Response Is Exactly Bearers" owner="checkBearersTestsResources">
+<variable name="${Response}">
+<msg time="2026-04-25T22:27:30.411766" level="INFO">${Response} = {'ue_id': 3, 'bearers': {'9': {'bearer_id': 9, 'protocol': None, 'target_bps': None, 'active': False}, '4': {'bearer_id': 4, 'protocol': None, 'target_bps': None, 'active': False}}, 'stats': {}}</msg>
+<var>${RESPONSE.json()}</var>
+<status status="PASS" start="2026-04-25T22:27:30.366134" elapsed="0.046092"/>
+</variable>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:27:30.455434" elapsed="0.043629"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${BearersIdList}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:27:30.542418" elapsed="0.043751"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-04-25T22:27:30.673402" level="INFO">Length is 2.</msg>
+<msg time="2026-04-25T22:27:30.673907" level="INFO">${BearersIdListLength} = 2</msg>
+<var>${BearersIdListLength}</var>
+<arg>${BearersIdList}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-04-25T22:27:30.629456" elapsed="0.044696"/>
+</kw>
+<kw name="Length Should Be" owner="BuiltIn">
+<msg time="2026-04-25T22:27:30.759720" level="INFO">Length is 2.</msg>
+<arg>${Response}[bearers]</arg>
+<arg>${BearersIdListLength}</arg>
+<doc>Verifies that the length of the given item is correct.</doc>
+<status status="PASS" start="2026-04-25T22:27:30.716621" elapsed="0.043553"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${BearersIdList}</arg>
+<arg>${Bearer}[0]</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-04-25T22:27:30.890433" elapsed="0.044177"/>
+</kw>
+<var name="${Bearer}">('9', {'bearer_id': 9, 'protocol': None, 'target_bps': None, 'active': False})</var>
+<status status="PASS" start="2026-04-25T22:27:30.847769" elapsed="0.129229"/>
+</iter>
+<iter>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${BearersIdList}</arg>
+<arg>${Bearer}[0]</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-04-25T22:27:31.063982" elapsed="0.044349"/>
+</kw>
+<var name="${Bearer}">('4', {'bearer_id': 4, 'protocol': None, 'target_bps': None, 'active': False})</var>
+<status status="PASS" start="2026-04-25T22:27:31.020339" elapsed="0.130704"/>
+</iter>
+<var>${Bearer}</var>
+<value>&amp;{Response}[bearers]</value>
+<status status="PASS" start="2026-04-25T22:27:30.803174" elapsed="0.390840"/>
+</for>
+<arg>4</arg>
+<arg>9</arg>
+<status status="PASS" start="2026-04-25T22:27:30.321682" elapsed="0.915584"/>
+</kw>
+<kw name="Detach Bearer4 From UE3" owner="checkBearersTestsResources" source_name="Detach Bearer${BearerId} From UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:31.368006" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:27:31.324498" elapsed="0.044329"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:31.493694" level="INFO">DELETE Request : url=http://localhost:8000/ues/3/bearers/4 
+ path_url=/ues/3/bearers/4 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:27:31.494232" level="INFO">DELETE Response : url=http://localhost:8000/ues/3/bearers/4 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:27:31 GMT', 'server': 'uvicorn', 'content-length': '51', 'content-type': 'application/json'} 
+ body={"status":"bearer_deleted","ue_id":3,"bearer_id":4} 
+ </msg>
+<msg time="2026-04-25T22:27:31.494767" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers/${BearerId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:27:31.412416" elapsed="0.082589"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:27:31.584294" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:27:31.539540" elapsed="0.045125"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:27:31.628190" elapsed="0.044187"/>
+</return>
+<doc>Detach Bearer with BearerId from UE with UeId</doc>
+<status status="PASS" start="2026-04-25T22:27:31.280653" elapsed="0.435583"/>
+</kw>
+<kw name="Get Info For UE3" owner="checkBearersTestsResources" source_name="Get Info For UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:31.848548" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:27:31.805102" elapsed="0.044114"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:31.946215" level="INFO">GET Request : url=http://localhost:8000/ues/3 
+ path_url=/ues/3 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:27:31.946665" level="INFO">GET Response : url=http://localhost:8000/ues/3 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:27:31 GMT', 'server': 'uvicorn', 'content-length': '103', 'content-type': 'application/json'} 
+ body={"ue_id":3,"bearers":{"9":{"bearer_id":9,"protocol":null,"target_bps":null,"active":false}},"stats":{}} 
+ </msg>
+<msg time="2026-04-25T22:27:31.947199" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:27:31.892534" elapsed="0.054873"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:27:32.035182" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:27:31.991425" elapsed="0.044125"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:27:32.077916" elapsed="0.043324"/>
+</return>
+<status status="PASS" start="2026-04-25T22:27:31.760421" elapsed="0.404976"/>
+</kw>
+<kw name="Verify If Response Is OK" owner="checkBearersTestsResources" source_name="Verify If Response Is ${StatusName}">
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${STATUS_NAMES}[${StatusName}]</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-04-25T22:27:32.253126" elapsed="0.044420"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:27:32.208558" elapsed="0.132814"/>
+</kw>
+<kw name="Verify If Response Is Exactly Bearers" owner="checkBearersTestsResources">
+<variable name="${Response}">
+<msg time="2026-04-25T22:27:32.473376" level="INFO">${Response} = {'ue_id': 3, 'bearers': {'9': {'bearer_id': 9, 'protocol': None, 'target_bps': None, 'active': False}}, 'stats': {}}</msg>
+<var>${RESPONSE.json()}</var>
+<status status="PASS" start="2026-04-25T22:27:32.428025" elapsed="0.045715"/>
+</variable>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:27:32.517349" elapsed="0.043816"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${BearersIdList}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:27:32.605351" elapsed="0.043790"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-04-25T22:27:32.736969" level="INFO">Length is 1.</msg>
+<msg time="2026-04-25T22:27:32.737446" level="INFO">${BearersIdListLength} = 1</msg>
+<var>${BearersIdListLength}</var>
+<arg>${BearersIdList}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-04-25T22:27:32.692287" elapsed="0.045363"/>
+</kw>
+<kw name="Length Should Be" owner="BuiltIn">
+<msg time="2026-04-25T22:27:32.825305" level="INFO">Length is 1.</msg>
+<arg>${Response}[bearers]</arg>
+<arg>${BearersIdListLength}</arg>
+<doc>Verifies that the length of the given item is correct.</doc>
+<status status="PASS" start="2026-04-25T22:27:32.781556" elapsed="0.044158"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${BearersIdList}</arg>
+<arg>${Bearer}[0]</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-04-25T22:27:32.955411" elapsed="0.044321"/>
+</kw>
+<var name="${Bearer}">('9', {'bearer_id': 9, 'protocol': None, 'target_bps': None, 'active': False})</var>
+<status status="PASS" start="2026-04-25T22:27:32.912765" elapsed="0.130429"/>
+</iter>
+<var>${Bearer}</var>
+<value>&amp;{Response}[bearers]</value>
+<status status="PASS" start="2026-04-25T22:27:32.869022" elapsed="0.217997"/>
+</for>
+<arg>9</arg>
+<status status="PASS" start="2026-04-25T22:27:32.384544" elapsed="0.745579"/>
+</kw>
+<kw name="Detach UE3 From Network" owner="checkBearersTestsResources" type="TEARDOWN" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:33.261689" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:27:33.218504" elapsed="0.043900"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:27:33.386194" level="INFO">DELETE Request : url=http://localhost:8000/ues/3 
+ path_url=/ues/3 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:27:33.386679" level="INFO">DELETE Response : url=http://localhost:8000/ues/3 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:27:32 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:27:33.387215" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:27:33.306382" elapsed="0.081061"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:27:33.430197" elapsed="0.043811"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-25T22:27:33.173354" elapsed="0.342994"/>
+</kw>
+<doc>Checks if listing bearers works properly</doc>
+<status status="PASS" start="2026-04-25T22:27:28.428536" elapsed="5.131535"/>
+</test>
+<doc>Test suite covering checking available bearers for a given UE</doc>
+<status status="PASS" start="2026-04-25T22:27:28.295663" elapsed="5.308658"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="checkActiveBearersTest" id="s1" pass="1" fail="0" skip="0">checkActiveBearersTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

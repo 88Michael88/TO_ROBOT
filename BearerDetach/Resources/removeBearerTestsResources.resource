@@ -1,8 +1,8 @@
 
 *** Variables ***
 ${BASE_URL}      http://localhost:8000
-&{STATUS_NAMES}  OK=200     Bad Request=400     Validation Error=422
-&{RESPONSE_NAMES_MAP}  Details=detail  Message=msg  Status=status
+&{STATUS_NAMES}  OK=200     Bad Request=400     Validation Error=422    Unprocessable Entity=422
+&{RESPONSE_NAMES_MAP}  Details=detail  Message=msg  Status=status  Cause=loc
 
 *** Keywords ***
 Attach UE${UeId} To Network
@@ -26,7 +26,6 @@ Detach UE${UeId} From Network
 
 Attach Bearer${BearerId} To UE${UeId}
     [Documentation]     Attach Bearer with BearerId to UE with UeId.
-    # [Arguments]         ${ExpectedStatus}= 200
     Create Session      connectSession      ${BASE_URL}
 
     ${BODY}=            Create Dictionary   bearer_id=${BearerId}
@@ -47,49 +46,20 @@ Detach Bearer${BearerId} From UE${UeId}
 
     RETURN              ${Response}
 
-# Start ${Protocol} Traffic For UE${UeId} On Bearer${BearerId}
-#     Create Session      connectSession      ${BASE_URL}
-#
-#     ${BODY}=            Create Dictionary   protocol=${Protocol}
-#     ${Response}=        POST On Session     connectSession   /ues/${UeId}/bearers  json=${BODY}     expected_status=Anything
-#
-#     Set Test Variable   ${BEARER_ID}        ${BearerId}
-#     Set Test Variable   ${RESPONSE}         ${Response}
-#
-#     RETURN              ${Response}
-
 Verify If Response Is ${StatusName}
     Status Should Be    ${STATUS_NAMES}[${StatusName}]
 
 Verify If Response ${ArgName} Is "${ArgValue}"
     VAR  ${ArgName}  ${RESPONSE_NAMES_MAP}[${ArgName}]
     VAR  ${Response}  ${RESPONSE.json()}
+    # ugly but works
     IF  "${ArgName}" == "msg"
         Log To Console      ${Response}[detail][0][${ArgName}]
         Should Be Equal     ${Response}[detail][0][${ArgName}]   ${ArgValue}    ignore_case=True
+    ELSE IF  "${ArgName}" == "loc"
+        Log To Console      ${Response}[detail][0][${ArgName}][1]
+        Should Be Equal     ${Response}[detail][0][${ArgName}][1]   ${ArgValue}    ignore_case=True
     ELSE
         Log To Console      ${Response}
         Should Be Equal     ${Response}[${ArgName}]  ${ArgValue}    ignore_case=True
     END
-
-
-Get Info For UE${UeId}
-    Create Session      connectSession      ${BASE_URL}
-    ${Response}=        GET On Session     connectSession   /ues/${UeId}     expected_status=Anything
-    Set Test Variable   ${RESPONSE}         ${Response}
-
-    RETURN              ${Response}
-
-Verify If Response Is Exactly Bearers
-    [Arguments]  @{BearersIdList}
-    VAR  ${Response}  ${RESPONSE.json()}
-    Log To Console  ${Response}
-    Log To Console  ${BearersIdList}
-
-    ${BearersIdListLength}=  Get Length  ${BearersIdList}
-    Length Should Be  ${Response}[bearers]  ${BearersIdListLength}
-
-    FOR  ${Bearer}  IN  &{Response}[bearers]
-        Should Contain  ${BearersIdList}  ${Bearer}[0]
-    END
-

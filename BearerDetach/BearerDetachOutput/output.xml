@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.13.12 on linux)" generated="2026-04-25T22:26:17.877345" rpa="false" schemaversion="5">
+<suite id="s1" name="removeBearerTest" source="/home/domino/studia/testowanie/epc-simulator/TO_ROBOT/BearerDetach/removeBearerTest.robot">
+<test id="s1-t1" name="TC 1 Remove bearer" line="8">
+<kw name="Run Keywords" owner="BuiltIn" type="SETUP">
+<kw name="Attach UE3 To Network" owner="removeBearerTestsResources" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:18.188711" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:18.145345" elapsed="0.044120"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-25T22:26:18.277818" level="INFO">${BODY} = {'ue_id': '3'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.233575" elapsed="0.044734"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:18.408110" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '14', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "3"}' 
+ </msg>
+<msg time="2026-04-25T22:26:18.408679" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:17 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:18.409240" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.320651" elapsed="0.088823"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:18.497357" level="INFO">${UE_ID} = 3</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.453560" elapsed="0.044227"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:18.541112" elapsed="0.043083"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.101432" elapsed="0.526167"/>
+</kw>
+<kw name="Attach Bearer7 To UE3" owner="removeBearerTestsResources" source_name="Attach Bearer${BearerId} To UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:18.762047" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:18.717541" elapsed="0.045235"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-25T22:26:18.848174" level="INFO">${BODY} = {'bearer_id': '7'}</msg>
+<var>${BODY}</var>
+<arg>bearer_id=${BearerId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.805692" elapsed="0.042651"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:18.968036" level="INFO">POST Request : url=http://localhost:8000/ues/3/bearers 
+ path_url=/ues/3/bearers 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '18', 'Content-Type': 'application/json'} 
+ body=b'{"bearer_id": "7"}' 
+ </msg>
+<msg time="2026-04-25T22:26:18.968324" level="INFO">POST Response : url=http://localhost:8000/ues/3/bearers 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:18 GMT', 'server': 'uvicorn', 'content-length': '49', 'content-type': 'application/json'} 
+ body={"status":"bearer_added","ue_id":3,"bearer_id":7} 
+ </msg>
+<msg time="2026-04-25T22:26:18.968784" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.889363" elapsed="0.079558"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:19.053507" level="INFO">${BEARER_ID} = 7</msg>
+<arg>${BEARER_ID}</arg>
+<arg>${BearerId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:19.010741" elapsed="0.042995"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:19.138015" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:19.095709" elapsed="0.042507"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:19.179507" elapsed="0.040941"/>
+</return>
+<doc>Attach Bearer with BearerId to UE with UeId.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.670667" elapsed="0.590780"/>
+</kw>
+<arg>Attach UE3 To Network</arg>
+<arg>Attach Bearer7 To UE3</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2026-04-25T22:26:18.056014" elapsed="1.247360"/>
+</kw>
+<kw name="Detach Bearer7 From UE3" owner="removeBearerTestsResources" source_name="Detach Bearer${BearerId} From UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:19.427676" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:19.386631" elapsed="0.041461"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:19.545699" level="INFO">DELETE Request : url=http://localhost:8000/ues/3/bearers/7 
+ path_url=/ues/3/bearers/7 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:19.545906" level="INFO">DELETE Response : url=http://localhost:8000/ues/3/bearers/7 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:18 GMT', 'server': 'uvicorn', 'content-length': '51', 'content-type': 'application/json'} 
+ body={"status":"bearer_deleted","ue_id":3,"bearer_id":7} 
+ </msg>
+<msg time="2026-04-25T22:26:19.546120" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers/${BearerId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:19.471395" elapsed="0.074930"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:19.635339" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:19.588631" elapsed="0.047245"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:19.679471" elapsed="0.042687"/>
+</return>
+<doc>Detach Bearer with BearerId from UE with UeId</doc>
+<status status="PASS" start="2026-04-25T22:26:19.344755" elapsed="0.420533"/>
+</kw>
+<kw name="Verify If Response Is OK" owner="removeBearerTestsResources" source_name="Verify If Response Is ${StatusName}">
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${STATUS_NAMES}[${StatusName}]</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-04-25T22:26:19.852284" elapsed="0.042845"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:19.808504" elapsed="0.128458"/>
+</kw>
+<kw name="Verify If Response Status Is &quot;bearer_deleted&quot;" owner="removeBearerTestsResources" source_name="Verify If Response ${ArgName} Is &quot;${ArgValue}&quot;">
+<variable name="${ArgName}">
+<msg time="2026-04-25T22:26:20.067972" level="INFO">${ArgName} = status</msg>
+<var>${RESPONSE_NAMES_MAP}[${ArgName}]</var>
+<status status="PASS" start="2026-04-25T22:26:20.023863" elapsed="0.044510"/>
+</variable>
+<variable name="${Response}">
+<msg time="2026-04-25T22:26:20.153334" level="INFO">${Response} = {'status': 'bearer_deleted', 'ue_id': 3, 'bearer_id': 7}</msg>
+<var>${RESPONSE.json()}</var>
+<status status="PASS" start="2026-04-25T22:26:20.111325" elapsed="0.042220"/>
+</variable>
+<if>
+<branch type="IF" condition="&quot;${ArgName}&quot; == &quot;msg&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:20.238582" elapsed="0.042056"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:20.323681" elapsed="0.042041"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:20.196496" elapsed="0.212238"/>
+</branch>
+<branch type="ELSE IF" condition="&quot;${ArgName}&quot; == &quot;loc&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:20.496586" elapsed="0.042793"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:20.582538" elapsed="0.042800"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:20.453239" elapsed="0.214813"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:26:20.754438" elapsed="0.043148"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-25T22:26:20.839509" elapsed="0.044280"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:20.711078" elapsed="0.215034"/>
+</branch>
+<status status="PASS" start="2026-04-25T22:26:20.196444" elapsed="0.772649"/>
+</if>
+<status status="PASS" start="2026-04-25T22:26:19.980092" elapsed="0.989280"/>
+</kw>
+<kw name="Detach UE3 From Network" owner="removeBearerTestsResources" type="TEARDOWN" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:21.101755" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:21.058277" elapsed="0.044187"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:21.230545" level="INFO">DELETE Request : url=http://localhost:8000/ues/3 
+ path_url=/ues/3 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:21.231073" level="INFO">DELETE Response : url=http://localhost:8000/ues/3 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:20 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:21.231592" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:21.145501" elapsed="0.086302"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:21.275219" elapsed="0.042352"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:21.013950" elapsed="0.345628"/>
+</kw>
+<doc>Tests removing a valid bearer</doc>
+<status status="PASS" start="2026-04-25T22:26:18.010445" elapsed="3.392750"/>
+</test>
+<test id="s1-t2" name="TC 2 Remove bearer outside range" line="19">
+<kw name="Attach UE3 To Network" owner="removeBearerTestsResources" type="SETUP" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:21.579563" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:21.535181" elapsed="0.045085"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-25T22:26:21.667272" level="INFO">${BODY} = {'ue_id': '3'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-25T22:26:21.623464" elapsed="0.044115"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:21.791806" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '14', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "3"}' 
+ </msg>
+<msg time="2026-04-25T22:26:21.792305" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:21 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:21.792790" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:21.710649" elapsed="0.082378"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:21.880164" level="INFO">${UE_ID} = 3</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:21.836441" elapsed="0.044111"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:21.923074" elapsed="0.043067"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:21.491826" elapsed="0.517407"/>
+</kw>
+<kw name="Detach Bearer10 From UE3" owner="removeBearerTestsResources" source_name="Detach Bearer${BearerId} From UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:22.141217" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:22.097269" elapsed="0.044595"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:22.239383" level="INFO">DELETE Request : url=http://localhost:8000/ues/3/bearers/10 
+ path_url=/ues/3/bearers/10 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:22.240019" level="INFO">DELETE Response : url=http://localhost:8000/ues/3/bearers/10 
+ status=400, reason=Bad Request 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:21 GMT', 'server': 'uvicorn', 'content-length': '29', 'content-type': 'application/json'} 
+ body={"detail":"Bearer not found"} 
+ </msg>
+<msg time="2026-04-25T22:26:22.240683" level="INFO">${Response} = &lt;Response [400]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers/${BearerId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:22.185555" elapsed="0.055455"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:22.332792" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:22.287015" elapsed="0.046305"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:22.377259" elapsed="0.043048"/>
+</return>
+<doc>Detach Bearer with BearerId from UE with UeId</doc>
+<status status="PASS" start="2026-04-25T22:26:22.052824" elapsed="0.411039"/>
+</kw>
+<kw name="Verify If Response Is Bad Request" owner="removeBearerTestsResources" source_name="Verify If Response Is ${StatusName}">
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${STATUS_NAMES}[${StatusName}]</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-04-25T22:26:22.552520" elapsed="0.044647"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:22.508198" elapsed="0.131969"/>
+</kw>
+<kw name="Verify If Response Details Is &quot;Bearer not found&quot;" owner="removeBearerTestsResources" source_name="Verify If Response ${ArgName} Is &quot;${ArgValue}&quot;">
+<variable name="${ArgName}">
+<msg time="2026-04-25T22:26:22.770417" level="INFO">${ArgName} = detail</msg>
+<var>${RESPONSE_NAMES_MAP}[${ArgName}]</var>
+<status status="PASS" start="2026-04-25T22:26:22.727107" elapsed="0.043639"/>
+</variable>
+<variable name="${Response}">
+<msg time="2026-04-25T22:26:22.859153" level="INFO">${Response} = {'detail': 'Bearer not found'}</msg>
+<var>${RESPONSE.json()}</var>
+<status status="PASS" start="2026-04-25T22:26:22.814309" elapsed="0.045217"/>
+</variable>
+<if>
+<branch type="IF" condition="&quot;${ArgName}&quot; == &quot;msg&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:22.945271" elapsed="0.042924"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:23.031308" elapsed="0.042963"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:22.902196" elapsed="0.215801"/>
+</branch>
+<branch type="ELSE IF" condition="&quot;${ArgName}&quot; == &quot;loc&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:23.203745" elapsed="0.043706"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:23.291590" elapsed="0.042788"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:23.160039" elapsed="0.217184"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:26:23.464554" elapsed="0.043756"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-25T22:26:23.551444" elapsed="0.044460"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:23.421098" elapsed="0.218012"/>
+</branch>
+<status status="PASS" start="2026-04-25T22:26:22.902080" elapsed="0.779941"/>
+</if>
+<status status="PASS" start="2026-04-25T22:26:22.683579" elapsed="0.998700"/>
+</kw>
+<kw name="Detach UE3 From Network" owner="removeBearerTestsResources" type="TEARDOWN" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:23.813701" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:23.770297" elapsed="0.044098"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:23.936533" level="INFO">DELETE Request : url=http://localhost:8000/ues/3 
+ path_url=/ues/3 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:23.937051" level="INFO">DELETE Response : url=http://localhost:8000/ues/3 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:23 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:23.937554" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:23.857268" elapsed="0.080474"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:23.981116" elapsed="0.043146"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:23.725914" elapsed="0.341458"/>
+</kw>
+<doc>Tests removing a bearer with ID outside of valid range</doc>
+<status status="PASS" start="2026-04-25T22:26:21.446777" elapsed="2.663293"/>
+</test>
+<test id="s1-t3" name="TC 3 Remove nonexistent bearer" line="27">
+<kw name="Attach UE3 To Network" owner="removeBearerTestsResources" type="SETUP" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:24.413767" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:24.370399" elapsed="0.044612"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-25T22:26:24.502327" level="INFO">${BODY} = {'ue_id': '3'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-25T22:26:24.458625" elapsed="0.043998"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:24.636890" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '14', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "3"}' 
+ </msg>
+<msg time="2026-04-25T22:26:24.637337" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:23 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:24.637767" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:24.545403" elapsed="0.092553"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:24.725518" level="INFO">${UE_ID} = 3</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:24.681638" elapsed="0.044263"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:24.769140" elapsed="0.042016"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:24.326785" elapsed="0.527432"/>
+</kw>
+<kw name="Detach Bearer7 From UE3" owner="removeBearerTestsResources" source_name="Detach Bearer${BearerId} From UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:24.985802" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:24.942088" elapsed="0.044728"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:25.086976" level="INFO">DELETE Request : url=http://localhost:8000/ues/3/bearers/7 
+ path_url=/ues/3/bearers/7 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:25.087441" level="INFO">DELETE Response : url=http://localhost:8000/ues/3/bearers/7 
+ status=400, reason=Bad Request 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:24 GMT', 'server': 'uvicorn', 'content-length': '29', 'content-type': 'application/json'} 
+ body={"detail":"Bearer not found"} 
+ </msg>
+<msg time="2026-04-25T22:26:25.087899" level="INFO">${Response} = &lt;Response [400]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers/${BearerId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:25.031469" elapsed="0.056647"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:25.176264" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:25.132498" elapsed="0.044152"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:25.220252" elapsed="0.042954"/>
+</return>
+<doc>Detach Bearer with BearerId from UE with UeId</doc>
+<status status="PASS" start="2026-04-25T22:26:24.897434" elapsed="0.409960"/>
+</kw>
+<kw name="Verify If Response Is Bad Request" owner="removeBearerTestsResources" source_name="Verify If Response Is ${StatusName}">
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${STATUS_NAMES}[${StatusName}]</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-04-25T22:26:25.395180" elapsed="0.044808"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:25.350542" elapsed="0.133736"/>
+</kw>
+<kw name="Verify If Response Details Is &quot;Bearer not found&quot;" owner="removeBearerTestsResources" source_name="Verify If Response ${ArgName} Is &quot;${ArgValue}&quot;">
+<variable name="${ArgName}">
+<msg time="2026-04-25T22:26:25.615552" level="INFO">${ArgName} = detail</msg>
+<var>${RESPONSE_NAMES_MAP}[${ArgName}]</var>
+<status status="PASS" start="2026-04-25T22:26:25.572116" elapsed="0.043790"/>
+</variable>
+<variable name="${Response}">
+<msg time="2026-04-25T22:26:25.704477" level="INFO">${Response} = {'detail': 'Bearer not found'}</msg>
+<var>${RESPONSE.json()}</var>
+<status status="PASS" start="2026-04-25T22:26:25.660050" elapsed="0.044798"/>
+</variable>
+<if>
+<branch type="IF" condition="&quot;${ArgName}&quot; == &quot;msg&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:25.791403" elapsed="0.042745"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:25.877394" elapsed="0.042785"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:25.748264" elapsed="0.215800"/>
+</branch>
+<branch type="ELSE IF" condition="&quot;${ArgName}&quot; == &quot;loc&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:26.050481" elapsed="0.043669"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:26.138332" elapsed="0.042984"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:26.006957" elapsed="0.217152"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:26:26.310345" elapsed="0.044898"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-25T22:26:26.398470" elapsed="0.044161"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:26.267876" elapsed="0.218254"/>
+</branch>
+<status status="PASS" start="2026-04-25T22:26:25.748148" elapsed="0.780774"/>
+</if>
+<status status="PASS" start="2026-04-25T22:26:25.527660" elapsed="1.001553"/>
+</kw>
+<kw name="Detach UE3 From Network" owner="removeBearerTestsResources" type="TEARDOWN" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:26.661550" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:26.617317" elapsed="0.044888"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:26.788333" level="INFO">DELETE Request : url=http://localhost:8000/ues/3 
+ path_url=/ues/3 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:26.789008" level="INFO">DELETE Response : url=http://localhost:8000/ues/3 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:25 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:26.789701" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:26.706709" elapsed="0.083337"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:26.834302" elapsed="0.042885"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:26.573766" elapsed="0.345895"/>
+</kw>
+<doc>Tests removing a bearer that does not exist</doc>
+<status status="PASS" start="2026-04-25T22:26:24.153682" elapsed="2.809675"/>
+</test>
+<test id="s1-t4" name="TC 4 Remove for nonexistent UE" line="35">
+<kw name="Detach Bearer7 From UE3" owner="removeBearerTestsResources" source_name="Detach Bearer${BearerId} From UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:27.139703" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:27.095371" elapsed="0.045429"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:27.234428" level="INFO">DELETE Request : url=http://localhost:8000/ues/3/bearers/7 
+ path_url=/ues/3/bearers/7 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:27.234554" level="INFO">DELETE Response : url=http://localhost:8000/ues/3/bearers/7 
+ status=400, reason=Bad Request 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:26 GMT', 'server': 'uvicorn', 'content-length': '25', 'content-type': 'application/json'} 
+ body={"detail":"UE not found"} 
+ </msg>
+<msg time="2026-04-25T22:26:27.234661" level="INFO">${Response} = &lt;Response [400]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers/${BearerId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:27.184654" elapsed="0.050042"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:27.322352" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:27.277586" elapsed="0.045165"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:27.365732" elapsed="0.042482"/>
+</return>
+<doc>Detach Bearer with BearerId from UE with UeId</doc>
+<status status="PASS" start="2026-04-25T22:26:27.050417" elapsed="0.400235"/>
+</kw>
+<kw name="Verify If Response Is Bad Request" owner="removeBearerTestsResources" source_name="Verify If Response Is ${StatusName}">
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${STATUS_NAMES}[${StatusName}]</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-04-25T22:26:27.537211" elapsed="0.043578"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:27.493534" elapsed="0.129759"/>
+</kw>
+<kw name="Verify If Response Details Is &quot;UE not found&quot;" owner="removeBearerTestsResources" source_name="Verify If Response ${ArgName} Is &quot;${ArgValue}&quot;">
+<variable name="${ArgName}">
+<msg time="2026-04-25T22:26:27.754607" level="INFO">${ArgName} = detail</msg>
+<var>${RESPONSE_NAMES_MAP}[${ArgName}]</var>
+<status status="PASS" start="2026-04-25T22:26:27.711404" elapsed="0.043559"/>
+</variable>
+<variable name="${Response}">
+<msg time="2026-04-25T22:26:27.844669" level="INFO">${Response} = {'detail': 'UE not found'}</msg>
+<var>${RESPONSE.json()}</var>
+<status status="PASS" start="2026-04-25T22:26:27.799416" elapsed="0.045935"/>
+</variable>
+<if>
+<branch type="IF" condition="&quot;${ArgName}&quot; == &quot;msg&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:27.934629" elapsed="0.041875"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:28.018487" elapsed="0.042769"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:27.889427" elapsed="0.215138"/>
+</branch>
+<branch type="ELSE IF" condition="&quot;${ArgName}&quot; == &quot;loc&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:28.190401" elapsed="0.042961"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:28.276451" elapsed="0.042653"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:28.146836" elapsed="0.215236"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:26:28.448433" elapsed="0.044825"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-25T22:26:28.537242" elapsed="0.045022"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:28.405890" elapsed="0.220218"/>
+</branch>
+<status status="PASS" start="2026-04-25T22:26:27.889316" elapsed="0.779158"/>
+</if>
+<status status="PASS" start="2026-04-25T22:26:27.666731" elapsed="1.001895"/>
+</kw>
+<doc>Tests removing a bearer on UE which does not exist</doc>
+<status status="PASS" start="2026-04-25T22:26:27.006911" elapsed="1.704871"/>
+</test>
+<test id="s1-t5" name="TC 5 Remove default bearer" line="41">
+<kw name="Attach UE3 To Network" owner="removeBearerTestsResources" type="SETUP" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:28.886688" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:28.843294" elapsed="0.044083"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-25T22:26:28.974260" level="INFO">${BODY} = {'ue_id': '3'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-25T22:26:28.930240" elapsed="0.044332"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:29.098646" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '14', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "3"}' 
+ </msg>
+<msg time="2026-04-25T22:26:29.099133" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:28 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:29.099621" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:29.017523" elapsed="0.082306"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:29.187140" level="INFO">${UE_ID} = 3</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:29.143409" elapsed="0.044079"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:29.230183" elapsed="0.043929"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:28.799745" elapsed="0.516589"/>
+</kw>
+<kw name="Detach Bearer9 From UE3" owner="removeBearerTestsResources" source_name="Detach Bearer${BearerId} From UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:29.447308" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:29.403220" elapsed="0.044764"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:29.544753" level="INFO">DELETE Request : url=http://localhost:8000/ues/3/bearers/9 
+ path_url=/ues/3/bearers/9 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:29.545231" level="INFO">DELETE Response : url=http://localhost:8000/ues/3/bearers/9 
+ status=400, reason=Bad Request 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:28 GMT', 'server': 'uvicorn', 'content-length': '41', 'content-type': 'application/json'} 
+ body={"detail":"Cannot remove default bearer"} 
+ </msg>
+<msg time="2026-04-25T22:26:29.545687" level="INFO">${Response} = &lt;Response [400]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}/bearers/${BearerId}</arg>
+<arg>expected_status=Anything</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:29.491626" elapsed="0.054275"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-25T22:26:29.633342" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<arg>${RESPONSE}</arg>
+<arg>${Response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-25T22:26:29.589431" elapsed="0.044297"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:29.677173" elapsed="0.043232"/>
+</return>
+<doc>Detach Bearer with BearerId from UE with UeId</doc>
+<status status="PASS" start="2026-04-25T22:26:29.359539" elapsed="0.404193"/>
+</kw>
+<kw name="Verify If Response Is Bad Request" owner="removeBearerTestsResources" source_name="Verify If Response Is ${StatusName}">
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>${STATUS_NAMES}[${StatusName}]</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-04-25T22:26:29.851402" elapsed="0.042449"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:29.807429" elapsed="0.128660"/>
+</kw>
+<kw name="Verify If Response Details Is &quot;Cannot remove default bearer&quot;" owner="removeBearerTestsResources" source_name="Verify If Response ${ArgName} Is &quot;${ArgValue}&quot;">
+<variable name="${ArgName}">
+<msg time="2026-04-25T22:26:30.064471" level="INFO">${ArgName} = detail</msg>
+<var>${RESPONSE_NAMES_MAP}[${ArgName}]</var>
+<status status="PASS" start="2026-04-25T22:26:30.022725" elapsed="0.041845"/>
+</variable>
+<variable name="${Response}">
+<msg time="2026-04-25T22:26:30.149430" level="INFO">${Response} = {'detail': 'Cannot remove default bearer'}</msg>
+<var>${RESPONSE.json()}</var>
+<status status="PASS" start="2026-04-25T22:26:30.105912" elapsed="0.043881"/>
+</variable>
+<if>
+<branch type="IF" condition="&quot;${ArgName}&quot; == &quot;msg&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:30.235351" elapsed="0.042741"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:30.321352" elapsed="0.042679"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:30.192187" elapsed="0.214841"/>
+</branch>
+<branch type="ELSE IF" condition="&quot;${ArgName}&quot; == &quot;loc&quot;">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:30.494016" elapsed="0.042283"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[detail][0][${ArgName}][1]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-04-25T22:26:30.580198" elapsed="0.042801"/>
+</kw>
+<status status="NOT RUN" start="2026-04-25T22:26:30.450850" elapsed="0.214240"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${Response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-04-25T22:26:30.750315" elapsed="0.044740"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${Response}[${ArgName}]</arg>
+<arg>${ArgValue}</arg>
+<arg>ignore_case=True</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-04-25T22:26:30.837067" elapsed="0.044280"/>
+</kw>
+<status status="PASS" start="2026-04-25T22:26:30.707983" elapsed="0.216249"/>
+</branch>
+<status status="PASS" start="2026-04-25T22:26:30.192073" elapsed="0.776023"/>
+</if>
+<status status="PASS" start="2026-04-25T22:26:29.979741" elapsed="0.988607"/>
+</kw>
+<kw name="Detach UE3 From Network" owner="removeBearerTestsResources" type="TEARDOWN" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:31.100608" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-25T22:26:31.057331" elapsed="0.043972"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-25T22:26:31.224330" level="INFO">DELETE Request : url=http://localhost:8000/ues/3 
+ path_url=/ues/3 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-25T22:26:31.224490" level="INFO">DELETE Response : url=http://localhost:8000/ues/3 
+ status=200, reason=OK 
+ headers={'date': 'Sat, 25 Apr 2026 20:26:30 GMT', 'server': 'uvicorn', 'content-length': '31', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":3} 
+ </msg>
+<msg time="2026-04-25T22:26:31.224747" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<var>${Response}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-25T22:26:31.144425" elapsed="0.080387"/>
+</kw>
+<return>
+<value>${Response}</value>
+<status status="PASS" start="2026-04-25T22:26:31.267194" elapsed="0.042968"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-25T22:26:31.013205" elapsed="0.339975"/>
+</kw>
+<doc>Tests attempting to remove the default bearer</doc>
+<status status="PASS" start="2026-04-25T22:26:28.755211" elapsed="2.640147"/>
+</test>
+<doc>This is a simple file where we try to understand robot.</doc>
+<status status="PASS" start="2026-04-25T22:26:17.879758" elapsed="13.559981"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="removeBearerTest" id="s1" pass="5" fail="0" skip="0">removeBearerTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

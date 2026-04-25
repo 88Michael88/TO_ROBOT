@@ -2,7 +2,7 @@
 *** Settings ***
 Documentation    Test suite covering adding a new bearer for a UE
 Library          RequestsLibrary
-Resource         bearerTestsResources.resource
+Resource         ./Resources/addBearerTestsResources.resource
 
 Test Setup  Attach UE3 To Network
 Test Teardown  Detach UE3 From Network
@@ -41,6 +41,13 @@ TC 4 Add Default Bearer
     Attach Bearer9 To UE3
     Verify If Response Is Bad Request
     Verify If Response Details Is "Bearer already exists"
+
+TC 5 Add Bearer Without ID
+    [Documentation]    Attempts to add a bearer with no ID
+    Attach Bearer With No Id To UE3
+    Verify If Response Is Unprocessable Entity
+    Verify If Response Message Is "Field required"
+    Verify If Response Cause Is "bearer_id"
 
 
 
