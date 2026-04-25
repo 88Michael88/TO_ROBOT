@@ -1,6 +1,3 @@
+.idea
 .env
 .robotcode_cache/
-
-log.html
-output.xml
-report.html
