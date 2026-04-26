@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.12.2 on win32)" generated="2026-04-26T21:57:48.544360" rpa="false" schemaversion="5">
+<suite id="s1" name="DetachTest" source="C:\Users\kubap\Desktop\TO\TO_ROBOT\Detach\DetachTest.robot">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.672548" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.672548" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.682355" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.682355" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.672548" elapsed="0.009807"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.671542" elapsed="0.010813"/>
+</kw>
+<test id="s1-t1" name="FN 2 TC 01 - Successful Detach Of Attached UE" line="14">
+<kw name="Prepare Test Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Attach UE${UE_ID} To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.684355" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.683354" elapsed="0.001001"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.684355" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.684355" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.700393" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:48.700393" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.700393" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.684355" elapsed="0.016038"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.700393" level="INFO">${UE_ID} = 42</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.700393" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:48.700393" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.683354" elapsed="0.018038"/>
+</kw>
+<doc>Attach UE to the network before the test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.683354" elapsed="0.018038"/>
+</kw>
+<kw name="Verify Detach UE42 From Network" owner="DetachVerification" source_name="Verify Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.701392" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.701392" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.716141" level="INFO">DELETE Request : url=http://localhost:8000/ues/42 
+ path_url=/ues/42 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.716657" level="INFO">DELETE Response : url=http://localhost:8000/ues/42 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.716657" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.701392" elapsed="0.015265"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.716657" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.716657" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESPONSE.json()}[status]</arg>
+<arg>detached</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.716657" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.718173" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.json()}[ue_id]</arg>
+<arg>${UeId}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.716657" elapsed="0.001516"/>
+</kw>
+<doc>Detach UE and verify the response contains status and ue_id.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.701392" elapsed="0.016781"/>
+</kw>
+<kw name="Clean Empty Test Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.718762" elapsed="0.000000"/>
+</kw>
+<doc>No cleanup needed - detach was expected to fail.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.718762" elapsed="0.000000"/>
+</kw>
+<doc>Verify that an attached UE detaches successfully and response contains status and ue_id.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.682355" elapsed="0.036407"/>
+</test>
+<test id="s1-t2" name="FN 2 TC 02 - Detached UE Disappears From List" line="18">
+<kw name="Prepare Test Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Attach UE${UE_ID} To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.720950" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.720950" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.721951" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.720950" elapsed="0.001001"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.734098" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:48.734098" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.734098" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.721951" elapsed="0.012147"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.735107" level="INFO">${UE_ID} = 42</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.734098" elapsed="0.001009"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:48.735107" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.719769" elapsed="0.015338"/>
+</kw>
+<doc>Attach UE to the network before the test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.719769" elapsed="0.015338"/>
+</kw>
+<kw name="Detach UE42 From Network" owner="SetupTeardown" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.736106" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.735107" elapsed="0.000999"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.750875" level="INFO">DELETE Request : url=http://localhost:8000/ues/42 
+ path_url=/ues/42 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.750875" level="INFO">DELETE Response : url=http://localhost:8000/ues/42 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.750875" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.736106" elapsed="0.014769"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:48.750875" elapsed="0.000000"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.735107" elapsed="0.015768"/>
+</kw>
+<kw name="Verify UE42 Absent From List" owner="DetachVerification" source_name="Verify UE${UeId} Absent From List">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.751874" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.751874" elapsed="0.000000"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.756898" level="INFO">GET Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.756898" level="INFO">GET Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '10', 'content-type': 'application/json'} 
+ body={"ues":[]} 
+ </msg>
+<msg time="2026-04-26T21:57:48.756898" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.751874" elapsed="0.005024"/>
+</kw>
+<kw name="List Should Not Contain Value" owner="Collections">
+<arg>${RESPONSE.json()}[ues]</arg>
+<arg>${${UeId}}</arg>
+<doc>Fails if the ``value`` is found from ``list``.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.756898" elapsed="0.001409"/>
+</kw>
+<doc>Verify that UE ID does not appear in GET /ues response after detach.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.751874" elapsed="0.006433"/>
+</kw>
+<kw name="Clean Empty Test Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.758811" elapsed="0.000000"/>
+</kw>
+<doc>No cleanup needed - detach was expected to fail.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.758307" elapsed="0.000504"/>
+</kw>
+<doc>Verify that UE ID is no longer present in GET /ues after detach.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.719769" elapsed="0.039042"/>
+</test>
+<test id="s1-t3" name="FN 2 TC 03 - GET On Detached UE Returns Error" line="23">
+<kw name="Prepare Test Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Attach UE${UE_ID} To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.759817" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.759817" elapsed="0.001088"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.760905" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.760905" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.774827" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:48.774827" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.774827" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.760905" elapsed="0.013922"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.774827" level="INFO">${UE_ID} = 42</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.774827" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:48.774827" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.759817" elapsed="0.015010"/>
+</kw>
+<doc>Attach UE to the network before the test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.759817" elapsed="0.015010"/>
+</kw>
+<kw name="Detach UE42 From Network" owner="SetupTeardown" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.776338" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.775834" elapsed="0.000504"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.790471" level="INFO">DELETE Request : url=http://localhost:8000/ues/42 
+ path_url=/ues/42 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.790471" level="INFO">DELETE Response : url=http://localhost:8000/ues/42 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.790471" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.776338" elapsed="0.014133"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:48.790981" elapsed="0.000000"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.775834" elapsed="0.015147"/>
+</kw>
+<kw name="Verify GET UE42 Returns Error" owner="DetachVerification" source_name="Verify GET UE${UeId} Returns Error">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.791501" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.791501" elapsed="0.000000"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.796024" level="INFO">GET Request : url=http://localhost:8000/ues/42 
+ path_url=/ues/42 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.796024" level="INFO">GET Response : url=http://localhost:8000/ues/42 
+ status=400, reason=Bad Request 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '25', 'content-type': 'application/json'} 
+ body={"detail":"UE not found"} 
+ </msg>
+<msg time="2026-04-26T21:57:48.796024" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.791501" elapsed="0.004523"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.797032" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.796024" elapsed="0.001515"/>
+</kw>
+<doc>Verify that GET /ues/{ue_id} returns an error after detach.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.790981" elapsed="0.006558"/>
+</kw>
+<kw name="Clean Empty Test Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.797539" elapsed="0.000000"/>
+</kw>
+<doc>No cleanup needed - detach was expected to fail.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.797539" elapsed="0.000000"/>
+</kw>
+<doc>Verify that GET /ues/{ue_id} fails after detach.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.758811" elapsed="0.038728"/>
+</test>
+<test id="s1-t4" name="FN 2 TC 04 - Detach Fails When UE Is Not Attached" line="28">
+<kw name="Prepare Empty Test Environment" owner="SetupTeardown" type="SETUP">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.799548" elapsed="0.000000"/>
+</kw>
+<doc>No setup needed - UE should not be attached.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.798546" elapsed="0.001002"/>
+</kw>
+<kw name="Verify Detach UE42 From Network Expected 400 Error" owner="DetachVerification" source_name="Verify Detach UE${UeId} From Network Expected ${ErrorCode} Error">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.799548" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.799548" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.806074" level="INFO">DELETE Request : url=http://localhost:8000/ues/42 
+ path_url=/ues/42 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.806074" level="INFO">DELETE Response : url=http://localhost:8000/ues/42 
+ status=400, reason=Bad Request 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '25', 'content-type': 'application/json'} 
+ body={"detail":"UE not found"} 
+ </msg>
+<msg time="2026-04-26T21:57:48.806074" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.799548" elapsed="0.006526"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.807078" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>${ErrorCode}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.806074" elapsed="0.001004"/>
+</kw>
+<doc>Detach UE and verify the response returns expected error code.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.799548" elapsed="0.007530"/>
+</kw>
+<kw name="Clean Empty Test Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.807078" elapsed="0.000000"/>
+</kw>
+<doc>No cleanup needed - detach was expected to fail.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.807078" elapsed="0.000000"/>
+</kw>
+<doc>Verify that detaching a UE that is not in the network returns an error.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.798546" elapsed="0.009557"/>
+</test>
+<test id="s1-t5" name="FN 2 TC 05 - UE Can Be Re-Attached After Detach" line="33">
+<kw name="Prepare Test Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Attach UE${UE_ID} To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.808622" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.808622" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.809626" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.809626" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.825836" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:48.825836" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.825836" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.809626" elapsed="0.016210"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.827004" level="INFO">${UE_ID} = 42</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.825836" elapsed="0.001168"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:48.827004" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.808622" elapsed="0.018382"/>
+</kw>
+<doc>Attach UE to the network before the test.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.808622" elapsed="0.018382"/>
+</kw>
+<kw name="Detach UE42 From Network" owner="SetupTeardown" source_name="Detach UE${UeId} From Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.827004" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.827004" elapsed="0.001006"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.841728" level="INFO">DELETE Request : url=http://localhost:8000/ues/42 
+ path_url=/ues/42 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.841728" level="INFO">DELETE Response : url=http://localhost:8000/ues/42 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"detached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.841728" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.828010" elapsed="0.013718"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:48.841728" elapsed="0.000000"/>
+</return>
+<doc>Detach UE with id UeId from the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.827004" elapsed="0.014724"/>
+</kw>
+<kw name="Verify Attach UE42 Successfully Re-Attached">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.844081" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.843477" elapsed="0.000604"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.844081" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=42</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.844081" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.857964" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:48.857964" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:48.857964" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.844081" elapsed="0.013883"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:48.859541" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.858963" elapsed="0.000578"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESPONSE.json()}[status]</arg>
+<arg>attached</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.859541" elapsed="0.000000"/>
+</kw>
+<doc>Attach UE42 again and verify success.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.843477" elapsed="0.016064"/>
+</kw>
+<kw name="Clean Empty Test Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.860548" elapsed="0.000000"/>
+</kw>
+<doc>No cleanup needed - detach was expected to fail.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.859541" elapsed="0.001007"/>
+</kw>
+<doc>Verify that a detached UE can be attached again successfully.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.808103" elapsed="0.052445"/>
+</test>
+<kw name="Clean Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.861548" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:48.861548" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:48.875921" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:48.875921" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:48 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.861548" elapsed="0.015379"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:48.861548" elapsed="0.015379"/>
+</kw>
+<doc>This test suite verifies the UE detach procedure (Functionality 2).</doc>
+<status status="PASS" start="2026-04-26T21:57:48.546874" elapsed="0.330053"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="DetachTest" id="s1" pass="5" fail="0" skip="0">DetachTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
