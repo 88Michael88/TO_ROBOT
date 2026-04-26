@@ -2,7 +2,7 @@
 *** Settings ***
 Documentation    This is a simple file where we try to understand robot.
 Library          RequestsLibrary
-Resource         bearerTestsResources.resource
+Resource         ./Resources/removeBearerTestsResources.resource
 
 *** Test Cases ***
 TC 1 Remove bearer
