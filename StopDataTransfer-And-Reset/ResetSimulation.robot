@@ -169,22 +169,23 @@ TC_9 9
     Reset Simulator
     
     Attach UE To Network  ${UE_ID}
-    # Bearer 1 nie istnieje dla tego UE, powinien zwrócić błąd
     ${response}=  Run Keyword And Expect Error  *  Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID}  50
     Log To Console    \nPróba uruchomienia trafficu na usuniętym bearerem zwróciła błąd (OK)
 
 TC_9 10
-    [Documentation]  attempt to use deleted ue and bearer after reset
-    [Tags]           Negative_Test    ResetTest
+    [Documentation]  checks if default bearer 9 transfer value is reseted
+    [Tags]             Positive_Test    ResetTest
 
     Reset Simulator
     Attach UE To Network  ${UE_ID}
-    Attach Bearer To Network  ${UE_ID}  ${BEARER_ID}
+    Start Traffic On Bearer  ${UE_ID}  ${9}  50
     Reset Simulator
     
-    # Stary UE i bearer nie istnieją
-    ${response}=  Run Keyword And Expect Error  *  Start Traffic On Bearer  ${UE_ID}  ${BEARER_ID}  50
-    Log To Console    \nPróba dostępu do usuniętego UE i bearera zwróciła błąd (OK)
+    Attach UE To Network  ${UE_ID}
+    ${response}=    Get Traffic Stats  ${UE_ID}  ${9}
+    Should Be Equal As Integers    ${response}  0   
+
+    Log To Console    \n Default bearer traffic is reseted and equal 0
 
 *** Keywords ***
 Prepare Environment
