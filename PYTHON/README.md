@@ -92,3 +92,5 @@ Tests use a temporary SQLite file per test app instance (see `tests/test_epc.py`
 
 ## Notes
 Traffic is simulated with an asyncio loop updating counters in SQLite, representing both UL and DL directions.
+
+docker run --rm -e PYTHONPATH=. epc-simulator uv run pytest -q
