@@ -1,111 +1,925 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.14.3 on linux)" generated="2026-04-26T20:05:06.402669" rpa="false" schemaversion="5">
-<suite id="s1" name="AttachTest" source="/home/mike/Desktop/Studia/Nokia/SimpleEPCSimulator/Attach/AttachTest.robot">
+<robot generator="Robot 7.4.2 (Python 3.12.2 on win32)" generated="2026-04-26T21:57:36.680484" rpa="false" schemaversion="5">
+<suite id="s1" name="AttachTest" source="C:\Users\kubap\Desktop\TO\TO_ROBOT\Attach\AttachTest.robot">
 <kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2026-04-26T20:05:06.557613" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2026-04-26T21:57:36.797760" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>connectSession</arg>
 <arg>${BASE_URL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2026-04-26T20:05:06.557355" elapsed="0.000433"/>
+<status status="PASS" start="2026-04-26T21:57:36.797760" elapsed="0.001007"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-26T20:05:06.560929" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:06.762365" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.164129" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.165920" level="FAIL">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</msg>
+<msg time="2026-04-26T21:57:36.839274" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:36.839274" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
 <arg>connectSession</arg>
 <arg>/reset</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="FAIL" start="2026-04-26T20:05:06.557921" elapsed="0.613868">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:36.798767" elapsed="0.040507"/>
 </kw>
 <doc>Reset the simulator to a clean state.</doc>
-<status status="FAIL" start="2026-04-26T20:05:06.556772" elapsed="0.615185">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:36.797760" elapsed="0.041514"/>
 </kw>
 <test id="s1-t1" name="FN 1 TC 01 - Successful Attach With Valid UE ID" line="13">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.839274" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.839274" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.844290" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:36.844290" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.839274" elapsed="0.005016"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.839274" elapsed="0.005016"/>
+</kw>
+<kw name="Verify Attach UE42 To Network" owner="AttachVerification" source_name="Verify Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.845797" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.845797" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:36.845797" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.845797" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.860434" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:36.860434" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:36.860434" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.846803" elapsed="0.013631"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:36.861435" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.860434" elapsed="0.001001"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESPONSE.json()}[status]</arg>
+<arg>attached</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.861435" elapsed="0.000505"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:36.861940" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.json()}[ue_id]</arg>
+<arg>${UeId}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.861940" elapsed="0.000000"/>
+</kw>
+<doc>Attach UE and verify the response contains status and ue_id.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.844290" elapsed="0.017650"/>
+</kw>
 <doc>Verify that a UE with a valid ID attaches successfully and response contains status and ue_id.</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.172036" elapsed="0.000593">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:36.839274" elapsed="0.022666"/>
 </test>
 <test id="s1-t2" name="FN 1 TC 02 - Default Bearer ID 9 Assigned After Attach" line="17">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.863445" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.863445" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.876679" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:36.876679" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.864453" elapsed="0.012226"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.863445" elapsed="0.013234"/>
+</kw>
+<kw name="Attach UE42 To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.877685" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.877685" elapsed="0.000583"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:36.878268" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.878268" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.892025" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:36.893029" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:36.893029" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.878268" elapsed="0.014761"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:36.893029" level="INFO">${UE_ID} = 42</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.893029" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:36.893029" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.877685" elapsed="0.015344"/>
+</kw>
+<kw name="Verify Default Bearer Assigned To UE42" owner="AttachVerification" source_name="Verify Default Bearer Assigned To UE${UeId}">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.894032" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.894032" elapsed="0.000000"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.899418" level="INFO">GET Request : url=http://localhost:8000/ues/42 
+ path_url=/ues/42 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:36.899418" level="INFO">GET Response : url=http://localhost:8000/ues/42 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '104', 'content-type': 'application/json'} 
+ body={"ue_id":42,"bearers":{"9":{"bearer_id":9,"protocol":null,"target_bps":null,"active":false}},"stats":{}} 
+ </msg>
+<msg time="2026-04-26T21:57:36.899418" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues/${UeId}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.894032" elapsed="0.005386"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${RESPONSE.json()}[bearers]</arg>
+<arg>9</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.899418" elapsed="0.000000"/>
+</kw>
+<doc>Verify that bearer ID 9 is present after attach via GET /ues/{ue_id}.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.893029" elapsed="0.006389"/>
+</kw>
 <doc>Verify that bearer ID 9 is automatically created after attach.</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.173004" elapsed="0.000808">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:36.863445" elapsed="0.036974"/>
 </test>
 <test id="s1-t3" name="FN 1 TC 03 - Attach UE With Minimum Valid ID = 0" line="22">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.900419" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.900419" elapsed="0.001000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.915148" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:36.915148" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.901419" elapsed="0.013729"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.900419" elapsed="0.014729"/>
+</kw>
+<kw name="Verify Attach UE0 To Network" owner="AttachVerification" source_name="Verify Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.916150" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.916150" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:36.916655" level="INFO">${BODY} = {'ue_id': '0'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.916655" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.920334" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '14', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "0"}' 
+ </msg>
+<msg time="2026-04-26T21:57:36.921376" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '143', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"greater_than_equal","loc":["body","ue_id"],"msg":"Input should be greater than or equal to 1","input":"0","ctx":{"ge":1}}]} 
+ </msg>
+<msg time="2026-04-26T21:57:36.921376" level="INFO">${RESPONSE} = &lt;Response [422]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.916655" elapsed="0.004721"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:36.921376" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2026-04-26T21:57:36.921376" level="FAIL">422 != 200</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2026-04-26T21:57:36.921376" elapsed="0.000000">422 != 200</status>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESPONSE.json()}[status]</arg>
+<arg>attached</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="NOT RUN" start="2026-04-26T21:57:36.921376" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${RESPONSE.json()}[ue_id]</arg>
+<arg>${UeId}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-04-26T21:57:36.921376" elapsed="0.000000"/>
+</kw>
+<doc>Attach UE and verify the response contains status and ue_id.</doc>
+<status status="FAIL" start="2026-04-26T21:57:36.915148" elapsed="0.006228">422 != 200</status>
+</kw>
 <doc>Verify that UE ID = 0 is accepted as a valid value (boundary).</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.174164" elapsed="0.000474">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="FAIL" start="2026-04-26T21:57:36.900419" elapsed="0.020957">422 != 200</status>
 </test>
 <test id="s1-t4" name="FN 1 TC 04 - Attach UE With Maximum Valid ID = 100" line="26">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:36.922882" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:36.922882" elapsed="0.001006"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.021419" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:37.021419" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.923888" elapsed="0.097531"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:36.922882" elapsed="0.098537"/>
+</kw>
+<kw name="Verify Attach UE100 To Network" owner="AttachVerification" source_name="Verify Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.022419" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.022419" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.023421" level="INFO">${BODY} = {'ue_id': '100'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.022419" elapsed="0.001002"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.036621" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '16', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "100"}' 
+ </msg>
+<msg time="2026-04-26T21:57:37.037626" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '33', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":100} 
+ </msg>
+<msg time="2026-04-26T21:57:37.037626" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.023421" elapsed="0.014205"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.037626" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.037626" elapsed="0.001003"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${RESPONSE.json()}[status]</arg>
+<arg>attached</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.038629" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.039626" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.json()}[ue_id]</arg>
+<arg>${UeId}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.038629" elapsed="0.000997"/>
+</kw>
+<doc>Attach UE and verify the response contains status and ue_id.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.021419" elapsed="0.018207"/>
+</kw>
 <doc>Verify that UE ID = 100 is accepted as a valid value (boundary).</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.175001" elapsed="0.000577">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:36.922882" elapsed="0.116744"/>
 </test>
 <test id="s1-t5" name="FN 1 TC 05 - Two Different UEs Can Be Attached Simultaneously" line="30">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.040627" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.040627" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.054290" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:37.054290" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.040627" elapsed="0.013663"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.040627" elapsed="0.013663"/>
+</kw>
+<kw name="Attach UE10 To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.055794" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.054290" elapsed="0.001504"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.055794" level="INFO">${BODY} = {'ue_id': '10'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.055794" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.068785" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "10"}' 
+ </msg>
+<msg time="2026-04-26T21:57:37.068785" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":10} 
+ </msg>
+<msg time="2026-04-26T21:57:37.068785" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.055794" elapsed="0.012991"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.069784" level="INFO">${UE_ID} = 10</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.068785" elapsed="0.000999"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:37.069784" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.054290" elapsed="0.015494"/>
+</kw>
+<kw name="Attach UE20 To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.069784" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.069784" elapsed="0.001000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.070784" level="INFO">${BODY} = {'ue_id': '20'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.070784" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.084450" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "20"}' 
+ </msg>
+<msg time="2026-04-26T21:57:37.084450" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":20} 
+ </msg>
+<msg time="2026-04-26T21:57:37.084450" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.070784" elapsed="0.013666"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.085955" level="INFO">${UE_ID} = 20</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.084450" elapsed="0.001505"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:37.085955" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.069784" elapsed="0.016171"/>
+</kw>
+<kw name="Verify UE10 Present In List" owner="AttachVerification" source_name="Verify UE${UeId} Present In List">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.085955" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.085955" elapsed="0.000000"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.090947" level="INFO">GET Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:37.090947" level="INFO">GET Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '15', 'content-type': 'application/json'} 
+ body={"ues":[10,20]} 
+ </msg>
+<msg time="2026-04-26T21:57:37.091947" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.086960" elapsed="0.004987"/>
+</kw>
+<kw name="List Should Contain Value" owner="Collections">
+<arg>${RESPONSE.json()}[ues]</arg>
+<arg>${${UeId}}</arg>
+<doc>Fails if the ``value`` is not found from ``list``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.091947" elapsed="0.000000"/>
+</kw>
+<doc>Verify that UE ID appears in GET /ues response.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.085955" elapsed="0.005992"/>
+</kw>
+<kw name="Verify UE20 Present In List" owner="AttachVerification" source_name="Verify UE${UeId} Present In List">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.093452" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.091947" elapsed="0.001505"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.099130" level="INFO">GET Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:37.099130" level="INFO">GET Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '15', 'content-type': 'application/json'} 
+ body={"ues":[10,20]} 
+ </msg>
+<msg time="2026-04-26T21:57:37.099130" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.093452" elapsed="0.005678"/>
+</kw>
+<kw name="List Should Contain Value" owner="Collections">
+<arg>${RESPONSE.json()}[ues]</arg>
+<arg>${${UeId}}</arg>
+<doc>Fails if the ``value`` is not found from ``list``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.099130" elapsed="0.001010"/>
+</kw>
+<doc>Verify that UE ID appears in GET /ues response.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.091947" elapsed="0.008193"/>
+</kw>
 <doc>Verify that UE ID 10 and UE ID 20 can both be attached and appear in GET /ues.</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.175992" elapsed="0.000482">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:37.040627" elapsed="0.059513"/>
 </test>
 <test id="s1-t6" name="FN 1 TC 06 - Attach Fails For UE ID Above Range" line="37">
+<kw name="Prepare Empty Test Environment" owner="SetupTeardown" type="SETUP">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.101136" elapsed="0.000000"/>
+</kw>
+<doc>No setup needed - UE should not be attached.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.101136" elapsed="0.000000"/>
+</kw>
+<kw name="Verify Attach UE101 To Network Expected 422 Error" owner="AttachVerification" source_name="Verify Attach UE${UeId} To Network Expected ${ErrorCode} Error">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.102136" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.102136" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.102136" level="INFO">${BODY} = {'ue_id': '101'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.102136" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.106715" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '16', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "101"}' 
+ </msg>
+<msg time="2026-04-26T21:57:37.106715" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '143', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"less_than_equal","loc":["body","ue_id"],"msg":"Input should be less than or equal to 100","input":"101","ctx":{"le":100}}]} 
+ </msg>
+<msg time="2026-04-26T21:57:37.106715" level="INFO">${RESPONSE} = &lt;Response [422]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.102136" elapsed="0.004579"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.106715" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>${ErrorCode}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.106715" elapsed="0.000000"/>
+</kw>
+<doc>Attach UE and verify the response returns expected error code.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.101136" elapsed="0.005579"/>
+</kw>
+<kw name="Clean Empty Test Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.107719" elapsed="0.000000"/>
+</kw>
+<doc>No cleanup needed - attach was expected to fail.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.107719" elapsed="0.000000"/>
+</kw>
 <doc>Verify that UE ID = 101 is rejected (boundary above max).</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.176789" elapsed="0.000401">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:37.101136" elapsed="0.006583"/>
 </test>
 <test id="s1-t7" name="FN 1 TC 07 - Attach Fails For Negative UE ID" line="43">
+<kw name="Prepare Empty Test Environment" owner="SetupTeardown" type="SETUP">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.107719" elapsed="0.001505"/>
+</kw>
+<doc>No setup needed - UE should not be attached.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.107719" elapsed="0.001505"/>
+</kw>
+<kw name="Verify Attach UE-1 To Network Expected 422 Error" owner="AttachVerification" source_name="Verify Attach UE${UeId} To Network Expected ${ErrorCode} Error">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.109836" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.109836" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.109836" level="INFO">${BODY} = {'ue_id': '-1'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.109836" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.114535" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "-1"}' 
+ </msg>
+<msg time="2026-04-26T21:57:37.114535" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '144', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"greater_than_equal","loc":["body","ue_id"],"msg":"Input should be greater than or equal to 1","input":"-1","ctx":{"ge":1}}]} 
+ </msg>
+<msg time="2026-04-26T21:57:37.116043" level="INFO">${RESPONSE} = &lt;Response [422]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.109836" elapsed="0.006207"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.116043" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>${ErrorCode}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.116043" elapsed="0.000000"/>
+</kw>
+<doc>Attach UE and verify the response returns expected error code.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.109836" elapsed="0.006207"/>
+</kw>
+<kw name="Clean Empty Test Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="No Operation" owner="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.117049" elapsed="0.000000"/>
+</kw>
+<doc>No cleanup needed - attach was expected to fail.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.116043" elapsed="0.001006"/>
+</kw>
 <doc>Verify that a negative UE ID is rejected.</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.177589" elapsed="0.000385">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:37.107719" elapsed="0.009330"/>
 </test>
 <test id="s1-t8" name="FN 1 TC 08 - Attach Fails When UE Already Attached" line="49">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.118081" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.118081" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.138316" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:37.138316" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.118612" elapsed="0.019704"/>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.118081" elapsed="0.020235"/>
+</kw>
+<kw name="Attach UE42 To Network" owner="SetupTeardown" source_name="Attach UE${UeId} To Network">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.139321" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.139321" elapsed="0.000674"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.139995" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.139995" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.179931" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:37.179931" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"status":"attached","ue_id":42} 
+ </msg>
+<msg time="2026-04-26T21:57:37.179931" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.139995" elapsed="0.039936"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.179931" level="INFO">${UE_ID} = 42</msg>
+<arg>${UE_ID}</arg>
+<arg>${UeId}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.179931" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2026-04-26T21:57:37.179931" elapsed="0.000000"/>
+</return>
+<doc>Attach UE with id UeId to the network.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.139321" elapsed="0.040610"/>
+</kw>
+<kw name="Verify Attach UE42 To Network Expected 400 Error" owner="AttachVerification" source_name="Verify Attach UE${UeId} To Network Expected ${ErrorCode} Error">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.180932" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T21:57:37.180932" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.180932" level="INFO">${BODY} = {'ue_id': '42'}</msg>
+<var>${BODY}</var>
+<arg>ue_id=${UeId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.180932" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T21:57:37.184609" level="INFO">POST Request : url=http://localhost:8000/ues 
+ path_url=/ues 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '15', 'Content-Type': 'application/json'} 
+ body=b'{"ue_id": "42"}' 
+ </msg>
+<msg time="2026-04-26T21:57:37.184609" level="INFO">POST Response : url=http://localhost:8000/ues 
+ status=400, reason=Bad Request 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '32', 'content-type': 'application/json'} 
+ body={"detail":"UE already attached"} 
+ </msg>
+<msg time="2026-04-26T21:57:37.184609" level="INFO">${RESPONSE} = &lt;Response [400]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>connectSession</arg>
+<arg>/ues</arg>
+<arg>json=${BODY}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.180932" elapsed="0.003677"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-04-26T21:57:37.186670" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${RESPONSE.status_code}</arg>
+<arg>${ErrorCode}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.186112" elapsed="0.000558"/>
+</kw>
+<doc>Attach UE and verify the response returns expected error code.</doc>
+<status status="PASS" start="2026-04-26T21:57:37.180932" elapsed="0.005738"/>
+</kw>
 <doc>Verify that attaching an already attached UE returns an error.</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.178438" elapsed="0.000613">Parent suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:37.117049" elapsed="0.069621"/>
 </test>
 <kw name="Clean Environment" owner="SetupTeardown" type="TEARDOWN">
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2026-04-26T20:05:07.180390" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2026-04-26T21:57:37.187674" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>connectSession</arg>
 <arg>${BASE_URL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2026-04-26T20:05:07.180132" elapsed="0.000519"/>
+<status status="PASS" start="2026-04-26T21:57:37.187674" elapsed="0.000000"/>
 </kw>
 <kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2026-04-26T20:05:07.182368" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.383735" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.785358" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.786700" level="FAIL">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</msg>
+<msg time="2026-04-26T21:57:37.200165" level="INFO">POST Request : url=http://localhost:8000/reset 
+ path_url=/reset 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-04-26T21:57:37.200165" level="INFO">POST Response : url=http://localhost:8000/reset 
+ status=200, reason=OK 
+ headers={'date': 'Sun, 26 Apr 2026 19:57:36 GMT', 'server': 'uvicorn', 'content-length': '18', 'content-type': 'application/json'} 
+ body={"status":"reset"} 
+ </msg>
 <arg>connectSession</arg>
 <arg>/reset</arg>
 <doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.180799" elapsed="0.610310">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:37.187674" elapsed="0.012491"/>
 </kw>
 <doc>Reset the simulator to a clean state.</doc>
-<status status="FAIL" start="2026-04-26T20:05:07.179903" elapsed="0.611484">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="PASS" start="2026-04-26T21:57:37.186670" elapsed="0.013495"/>
 </kw>
 <doc>This test suite verifies the UE attach procedure (Functionality 1).</doc>
-<status status="FAIL" start="2026-04-26T20:05:06.403722" elapsed="1.387748">Suite setup failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))
-
-Also suite teardown failed:
-ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+<status status="FAIL" start="2026-04-26T21:57:36.682030" elapsed="0.518135"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="8" skip="0">All Tests</stat>
+<stat pass="7" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="AttachTest" id="s1" pass="0" fail="8" skip="0">AttachTest</stat>
+<stat name="AttachTest" id="s1" pass="7" fail="1" skip="0">AttachTest</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2026-04-26T20:05:06.560929" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:06.762365" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.164129" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.182368" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.383735" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
-<msg time="2026-04-26T20:05:07.785358" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
 </errors>
 </robot>
