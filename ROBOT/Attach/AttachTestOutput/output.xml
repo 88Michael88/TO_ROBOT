@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.3 on linux)" generated="2026-04-26T20:05:06.402669" rpa="false" schemaversion="5">
+<suite id="s1" name="AttachTest" source="/home/mike/Desktop/Studia/Nokia/SimpleEPCSimulator/Attach/AttachTest.robot">
+<kw name="Clean Environment" owner="SetupTeardown" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T20:05:06.557613" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T20:05:06.557355" elapsed="0.000433"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T20:05:06.560929" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:06.762365" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.164129" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.165920" level="FAIL">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-04-26T20:05:06.557921" elapsed="0.613868">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="FAIL" start="2026-04-26T20:05:06.556772" elapsed="0.615185">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</kw>
+<test id="s1-t1" name="FN 1 TC 01 - Successful Attach With Valid UE ID" line="13">
+<doc>Verify that a UE with a valid ID attaches successfully and response contains status and ue_id.</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.172036" elapsed="0.000593">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-t2" name="FN 1 TC 02 - Default Bearer ID 9 Assigned After Attach" line="17">
+<doc>Verify that bearer ID 9 is automatically created after attach.</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.173004" elapsed="0.000808">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-t3" name="FN 1 TC 03 - Attach UE With Minimum Valid ID = 0" line="22">
+<doc>Verify that UE ID = 0 is accepted as a valid value (boundary).</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.174164" elapsed="0.000474">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-t4" name="FN 1 TC 04 - Attach UE With Maximum Valid ID = 100" line="26">
+<doc>Verify that UE ID = 100 is accepted as a valid value (boundary).</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.175001" elapsed="0.000577">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-t5" name="FN 1 TC 05 - Two Different UEs Can Be Attached Simultaneously" line="30">
+<doc>Verify that UE ID 10 and UE ID 20 can both be attached and appear in GET /ues.</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.175992" elapsed="0.000482">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-t6" name="FN 1 TC 06 - Attach Fails For UE ID Above Range" line="37">
+<doc>Verify that UE ID = 101 is rejected (boundary above max).</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.176789" elapsed="0.000401">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-t7" name="FN 1 TC 07 - Attach Fails For Negative UE ID" line="43">
+<doc>Verify that a negative UE ID is rejected.</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.177589" elapsed="0.000385">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<test id="s1-t8" name="FN 1 TC 08 - Attach Fails When UE Already Attached" line="49">
+<doc>Verify that attaching an already attached UE returns an error.</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.178438" elapsed="0.000613">Parent suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</test>
+<kw name="Clean Environment" owner="SetupTeardown" type="TEARDOWN">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-26T20:05:07.180390" level="INFO">Creating Session using : alias=connectSession, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>connectSession</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-26T20:05:07.180132" elapsed="0.000519"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-26T20:05:07.182368" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.383735" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.785358" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.786700" level="FAIL">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</msg>
+<arg>connectSession</arg>
+<arg>/reset</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.180799" elapsed="0.610310">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</kw>
+<doc>Reset the simulator to a clean state.</doc>
+<status status="FAIL" start="2026-04-26T20:05:07.179903" elapsed="0.611484">ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</kw>
+<doc>This test suite verifies the UE attach procedure (Functionality 1).</doc>
+<status status="FAIL" start="2026-04-26T20:05:06.403722" elapsed="1.387748">Suite setup failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))
+
+Also suite teardown failed:
+ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /reset (Caused by NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused"))</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="8" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="AttachTest" id="s1" pass="0" fail="8" skip="0">AttachTest</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-04-26T20:05:06.560929" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:06.762365" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.164129" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.182368" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.383735" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+<msg time="2026-04-26T20:05:07.785358" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /reset</msg>
+</errors>
+</robot>
