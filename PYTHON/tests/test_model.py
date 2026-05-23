@@ -1,9 +1,7 @@
-# test_models.py
-
 import pytest
 from pydantic import ValidationError
 
-from .epc.models import (
+from epc.models import (
     AttachUERequest,
     AddBearerRequest,
     StartTrafficRequest,
@@ -68,7 +66,7 @@ def test_bearer_config_accepts_valid_protocol(protocol):
     assert model.protocol == protocol
 
 
-@pytest.mark.parametrize("protocol", ["icmp", "http", ""])
+@pytest.mark.parametrize("protocol", ["quic", "http", ""])
 def test_bearer_config_rejects_invalid_protocol(protocol):
     with pytest.raises(ValidationError):
         BearerConfig(
@@ -131,7 +129,7 @@ def test_start_traffic_requires_at_least_one_throughput():
         StartTrafficRequest(protocol="udp")
 
 
-@pytest.mark.parametrize("protocol", ["icmp", "http"])
+@pytest.mark.parametrize("protocol", ["quic", "http"])
 def test_start_traffic_rejects_invalid_protocol(protocol):
     with pytest.raises(ValidationError):
         StartTrafficRequest(
