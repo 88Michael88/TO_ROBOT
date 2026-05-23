@@ -18,3 +18,9 @@ docker run --rm -e PYTHONPATH=. epc-simulator uv run pytest -v -q
 
 > [!Important]
 > Bardzo ważne jest zbudowanie kontenera za każdym razem gdy modyfikujemy testy.
+
+## Rodzaje testów
+
+Zostały wykonane dwa rodzaje unit testów: 
+- pierwszy rodzaj sprawdza działanie danego modelu i zakład poprawne działanie - brak wyrzucenia błędu.
+- drugi rodzaj sprawdza działanie danego modelu i oczekuje wyrzucenie błędu. Ten rodzaj testu sprawdza czy poprawnie działa weryfikacja danych.
