@@ -160,9 +160,9 @@ Testy sprawdzające edge casy i walidację danych
 - `test_operation_on_nonexistent_ue_raises_error` — Czy operacje na nieistniejącym UE wyrzucają błędy
 - `test_add_bearer_to_nonexistent_ue_raises_error` — Czy dodanie bearera do nieistniejącego UE wyrzuca błąd
 - `test_delete_bearer_from_nonexistent_ue_raises_error` — Czy usunięcie bearera z nieistniejącego UE wyrzuca błąd
-- `test_attach_valid_ue_ids[1]`, `[100]` — Czy walidne UE IDs (1, 100) mogą być dodane
-- `test_attach_unvalid_ue_ids[0]`, `[101]` — Czy niewalidne UE IDs (0, 101) są odrzucane
-- `test_add_valid_bearer_ids[1]`, `[5]`, `[8]` — Czy walidne bearer IDs mogą być dodane
+- `test_attach_valid_ue_ids[1]`, `[100]` — Czy poprawne UE IDs (1, 100) mogą być dodane
+- `test_attach_unvalid_ue_ids[0]`, `[101]` — Czy poprawne UE IDs (0, 101) są odrzucane
+- `test_add_valid_bearer_ids[1]`, `[5]`, `[8]` — Czy niepoprawne bearer IDs mogą być dodane
 
 
 ---
