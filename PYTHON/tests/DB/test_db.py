@@ -3,8 +3,6 @@ import sys
 from pathlib import Path
 
 import pytest
-
-# Add parent directory to path to import epc module
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from epc.db import EPCRepository
@@ -16,7 +14,7 @@ from epc.models import BearerConfig, UEState
 # ---------------------------------------------------------------------------
 
 def fixed_conn(self):
-    """Fix for in-memory database connection handling."""
+    """Fix for in-memory database connection handling"""
     if not hasattr(self, '_shared_conn'):
         self._shared_conn = sqlite3.connect(self._path, check_same_thread=False)
         self._shared_conn.row_factory = sqlite3.Row
@@ -32,10 +30,9 @@ EPCRepository._conn = fixed_conn
 
 @pytest.fixture
 def repo():
-    """Fixture that provides a fresh in-memory database for each test."""
+    """Fixture that provides a fresh in-memory database for each test"""
     repository = EPCRepository(db_path=":memory:")
     yield repository
-    # Cleanup is automatic for in-memory databases
 
 
 # ---------------------------------------------------------------------------
@@ -44,7 +41,7 @@ def repo():
 
 class TestAttachUE:
     def test_attach_ue_saves_correctly(self, repo):
-        """Test if UE is correctly saved to database."""
+        """Test if UE is correctly saved to database"""
         ue_id = 10
         repo.attach_ue(ue_id)
         
@@ -53,16 +50,16 @@ class TestAttachUE:
         assert state.ue_id == ue_id
 
     def test_default_bearer_9_created(self, repo):
-        """Test if default bearer 9 is created automatically."""
+        """Test if default bearer 9 is created automaticlly"""
         ue_id = 5
         repo.attach_ue(ue_id)
         
         state = repo.get_ue(ue_id)
-        assert 9 in state.bearers, "Bearer 9 should be added automatically!"
+        assert 9 in state.bearers, "Bearer 9 should be added automaticlly"
         assert state.bearers[9].bearer_id == 9
 
     def test_attach_duplicate_ue_raises_error(self, repo):
-        """Test if attaching duplicate UE raises an error."""
+        """Test if attaching duplicate UE raises an error"""
         ue_id = 10
         repo.attach_ue(ue_id)
         
@@ -76,7 +73,7 @@ class TestAttachUE:
 
 class TestDetachUE:
     def test_detach_removes_ue(self, repo):
-        """Test if detach actually removes the UE from database."""
+        """Test if detach actually removes the UE from database"""
         repo.attach_ue(10)
         assert repo.ue_exists(10)
         
@@ -85,7 +82,7 @@ class TestDetachUE:
         assert not repo.ue_exists(10)
 
     def test_detach_nonexistent_ue_raises_error(self, repo):
-        """Test if detaching non-existent UE raises an error."""
+        """Test if detaching non-existent UE raises an error"""
         with pytest.raises(ValueError, match="not found"):
             repo.detach_ue(999)
 
@@ -96,7 +93,7 @@ class TestDetachUE:
 
 class TestBearer:
     def test_add_bearer_to_ue(self, repo):
-        """Test if bearer can be added to existing UE."""
+        """Test if bearer can be added to existing UE"""
         repo.attach_ue(1)
         repo.add_bearer(1, 5)
         
@@ -104,7 +101,7 @@ class TestBearer:
         assert 5 in state.bearers
 
     def test_add_duplicate_bearer_raises_error(self, repo):
-        """Test if adding existing bearer raises an error."""
+        """Test if adding existing bearer raises an error"""
         repo.attach_ue(10)
         # Bearer 9 is added automatically
         
@@ -112,21 +109,21 @@ class TestBearer:
             repo.add_bearer(10, 9)
 
     def test_delete_nonexistent_bearer_raises_error(self, repo):
-        """Test if deleting non-existent bearer raises an error."""
+        """Test if deleting non-existent bearer raises an error"""
         repo.attach_ue(10)
         
         with pytest.raises(ValueError, match="not found"):
             repo.delete_bearer(10, 5)
 
     def test_delete_default_bearer_raises_error(self, repo):
-        """Test if deleting default bearer 9 is blocked."""
+        """Test if deleting default bearer 9 is blocked"""
         repo.attach_ue(10)
         
         with pytest.raises(ValueError, match="default bearer"):
             repo.delete_bearer(10, 9)
 
     def test_delete_bearer_removes_it(self, repo):
-        """Test if deleting bearer removes it from database."""
+        """Test if deleting bearer removes it from database"""
         repo.attach_ue(1)
         repo.add_bearer(1, 5)
         
@@ -145,7 +142,7 @@ class TestBearer:
 
 class TestGetUE:
     def test_get_existing_ue(self, repo):
-        """Test if get_ue returns correct UE."""
+        """Test if get_ue returns correct UE"""
         repo.attach_ue(7)
         
         state = repo.get_ue(7)
@@ -154,9 +151,9 @@ class TestGetUE:
         assert isinstance(state, UEState)
 
     def test_get_nonexistent_ue_raises_error(self, repo):
-        """Test if getting non-existent UE raises an error."""
+        """Test if getting non-existent UE raises an error"""
         with pytest.raises(ValueError, match="not found"):
-            repo.get_ue(999)
+            repo.get_ue(10)
 
 
 # ---------------------------------------------------------------------------
@@ -165,7 +162,7 @@ class TestGetUE:
 
 class TestListUEs:
     def test_list_ues_shows_all(self, repo):
-        """Test if list_ues shows all correct IDs."""
+        """Test if list_ues shows all correct IDs"""
         repo.attach_ue(1)
         repo.attach_ue(2)
         repo.attach_ue(3)
@@ -178,13 +175,13 @@ class TestListUEs:
         assert 3 in ues
 
     def test_list_ues_empty(self, repo):
-        """Test if list_ues returns empty list when no UEs."""
+        """Test if list_ues returns empty list when no UEs"""
         ues = list(repo.list_ues())
         
         assert len(ues) == 0
 
     def test_list_ues_ordered(self, repo):
-        """Test if list_ues returns ordered IDs."""
+        """Test if list_ues returns ordered IDs"""
         repo.attach_ue(5)
         repo.attach_ue(1)
         repo.attach_ue(3)
@@ -200,7 +197,7 @@ class TestListUEs:
 
 class TestReset:
     def test_reset_removes_all_ues(self, repo):
-        """Test if reset removes all UEs."""
+        """Test if reset removes all UEs"""
         repo.attach_ue(1)
         repo.attach_ue(2)
         
@@ -211,11 +208,11 @@ class TestReset:
         assert list(repo.list_ues()) == []
 
     def test_reset_on_empty_db(self, repo):
-        """Test if reset works on empty database."""
+        """Test if reset works on empty database"""
         repo.reset_all()
         
         assert list(repo.list_ues()) == []
-
+    
 
 # ---------------------------------------------------------------------------
 # Edge Cases
@@ -223,33 +220,41 @@ class TestReset:
 
 class TestEdgeCases:
     def test_operation_on_nonexistent_ue_raises_error(self, repo):
-        """Test if operations on non-existent UE raise an error."""
+        """Test if operations on non-existent UE raise an error"""
         with pytest.raises(ValueError, match="not found"):
-            repo.get_ue(999)
+            repo.get_ue(10)
         
         with pytest.raises(ValueError, match="not found"):
-            repo.detach_ue(999)
+            repo.detach_ue(10)
 
     def test_add_bearer_to_nonexistent_ue_raises_error(self, repo):
-        """Test if adding bearer to non-existent UE raises error."""
+        """Test if adding bearer to non-existent UE raises error"""
         with pytest.raises(ValueError, match="not found"):
-            repo.add_bearer(999, 5)
+            repo.add_bearer(10, 5)
 
     def test_delete_bearer_from_nonexistent_ue_raises_error(self, repo):
-        """Test if deleting bearer from non-existent UE raises error."""
+        """Test if deleting bearer from non-existent UE raises error"""
         with pytest.raises(ValueError, match="not found"):
-            repo.delete_bearer(999, 5)
+            repo.delete_bearer(10, 5)
 
-    @pytest.mark.parametrize("ue_id", [1, 50, 100])
+    @pytest.mark.parametrize("ue_id", [1, 100])
     def test_attach_valid_ue_ids(self, repo, ue_id):
-        """Test if various valid UE IDs can be attached."""
+        """Test if edge cased valid UE IDs can be attached"""
         repo.attach_ue(ue_id)
         
         assert repo.ue_exists(ue_id)
 
+    @pytest.mark.parametrize("ue_id", [0, 101])
+    def test_attach_unvalid_ue_ids(self, repo, ue_id):
+        """Test if edged cased unvalid UE IDs cannot be attached"""
+        with pytest.raises(ValueError, match="validation error"):
+            repo.attach_ue(ue_id)
+        
+        assert list(repo.list_ues()) == []
+
     @pytest.mark.parametrize("bearer_id", [1, 5, 8])
     def test_add_valid_bearer_ids(self, repo, bearer_id):
-        """Test if various valid bearer IDs can be added."""
+        """Test if various valid bearer IDs can be added"""
         repo.attach_ue(1)
         repo.add_bearer(1, bearer_id)
         
