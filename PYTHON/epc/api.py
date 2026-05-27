@@ -191,6 +191,27 @@ def start_traffic(
     )
 
 
+@router.delete("/ues/{ue_id}/traffic", response_model=StatusResponse)
+def stop_all_traffic_for_ue(
+    ue_id: int,
+    repo: Annotated[EPCRepository, Depends(get_repo)],
+):
+    try:
+        state = repo.get_ue(ue_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+    tm = get_traffic_manager(repo)
+    for bearer_id in state.bearers.keys():
+        if tm.is_running(ue_id, bearer_id):
+            tm.stop(ue_id, bearer_id)
+            bearer = state.bearers[bearer_id]
+            bearer.active = False
+            repo.update_bearer(ue_id, bearer)
+    
+    return StatusResponse(status="all_traffic_stopped")
+
+
 @router.delete("/ues/{ue_id}/bearers/{bearer_id}/traffic", response_model=TrafficStopResponse)
 def stop_traffic(
     ue_id: int,

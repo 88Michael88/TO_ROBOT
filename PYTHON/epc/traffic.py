@@ -57,9 +57,10 @@ class TrafficGeneratorManager:
     def stop(self, ue_id: int, bearer_id: int):
         key = (ue_id, bearer_id)
         future = self.tasks.get(key)
-        if future:
-            future.cancel()
-            del self.tasks[key]
+        if not future:
+            raise ValueError("Traffic is not running")
+        future.cancel()
+        del self.tasks[key]
 
     def stop_all(self):
         for key, future in list(self.tasks.items()):
