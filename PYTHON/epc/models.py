@@ -20,7 +20,7 @@ class ThroughputStats(BaseModel):
 
 
 class UEState(BaseModel):
-    ue_id: int = Field(ge=1, le=100)
+    ue_id: int = Field(ge=0, le=100)
     bearers: dict[int, BearerConfig] = {}
     stats: dict[int, ThroughputStats] = {}
 
