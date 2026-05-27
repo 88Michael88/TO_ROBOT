@@ -50,10 +50,19 @@ class StartTrafficRequest(BaseModel):
 
     @model_validator(mode="after")
     def exactly_one_throughput(self):
-        provided = [v for v in [self.Mbps, self.kbps, self.bps] if v is not None]
+        MIN_BPS = 1           # 1    bps
+        MAX_BPS = 100_000_000 # 100 Mbps
+
+        provided = [v for v in [self.Mbps, self.kbps, self.bps] if v is not None];
         if len(provided) != 1:
-            raise ValueError("Provide exactly one throughput value (Mbps, kbps, or bps)")
-        return self
+            raise ValueError("Provide exactly one throughput value (Mbps, kbps, or bps)");
+
+        target = self.target_bps();
+
+        if not (MIN_BPS <= target <= MAX_BPS):
+            raise ValueError(f"Throughput must be between {MIN_BPS} bps and {MAX_BPS} bps");
+
+        return self;
 
     def target_bps(self) -> int:
         if self.Mbps is not None:

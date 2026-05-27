@@ -13,7 +13,7 @@ ${SPEED}        NONE        # 1 / 50 / 99 / 100 / 101
 ${SPEED_bps}    NONE        # The speed in bps
 ${UNITS}        NONE        # bps / kbps / Mbps
 ${PROTOCOL}     NONE        # TCP / UDP
-${DURATION}     100
+${DURATION}     1
 
 
 *** Keywords ***
