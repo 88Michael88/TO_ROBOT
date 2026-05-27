@@ -149,19 +149,19 @@ FN 3-4 TC 22 - Transfer below Minimum Speed
     [Documentation]     Verify that data transfer fails when connection speed is below the minimum allowed value (0 bps). Expect HTTP 400 error.
     Set Transfer Speed To 0 bps
     Set TCP Protocol
-    Verify Transfer Expected 400 Error
+    Verify Transfer Expected 422 Error
 
 FN 3-4 TC 23 - Transfer below Minimum Speed
     [Documentation]     Verify that data transfer fails when connection speed is below the minimum allowed value (0 kbps). Expect HTTP 400 error.
     Set Transfer Speed To 0 kbps
     Set TCP Protocol
-    Verify Transfer Expected 400 Error
+    Verify Transfer Expected 422 Error
 
 FN 3-4 TC 24 - Transfer below Minimum Speed
     [Documentation]     Verify that data transfer fails when connection speed is below the minimum allowed value (0 Mbps). Expect HTTP 400 error.
     Set Transfer Speed To 0 Mbps
     Set TCP Protocol
-    Verify Transfer Expected 400 Error
+    Verify Transfer Expected 422 Error
 
 
 *** Keywords ***
